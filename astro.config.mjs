@@ -3,7 +3,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://ifhdev.github.io',
+  site: 'https://ifhDev.github.io',
+  base: '/filtered-website-test',
   vite: {
     plugins: [tailwindcss()],
   },
