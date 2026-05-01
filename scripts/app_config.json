@@ -1,0 +1,41 @@
+{
+    "last_path": "C:/Users/ihaeu/Data Projects/filtered-website-test/src/data/books.json",
+    "active_template": "Books",
+    "templates": {
+        "Books": [
+            "id",
+            "title",
+            "series",
+            "positionInSeries",
+            "releaseDate",
+            "coverImage",
+            "altText",
+            "blurb",
+            "isRecent",
+            "isFeatured",
+            "tropes",
+            "dynamics",
+            "readerNotes",
+            "isKU",
+            "purchaseOptions",
+            "miniBlurb",
+            "tagLine",
+            "similarBooks"
+        ],
+        "Reader Magnets & Extras": [
+            "parentBookId",
+            "type",
+            "chronology",
+            "timelineContext",
+            "requirement",
+            "bookfunnelLink"
+        ],
+        "Tropes": [
+            "slug",
+            "name",
+            "description",
+            "featured",
+            "canonical"
+        ]
+    }
+}

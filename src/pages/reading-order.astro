@@ -1,0 +1,126 @@
+---
+import PortfolioLayout from "../layouts/PortfolioLayout.astro";
+import Button from "../components/Button.astro";
+import Badge from "../components/Badge.astro";
+import type { Book, Extra } from "../types";
+import booksData from "../data/books.json";
+import extrasData from "../data/extras.json";
+
+const books: Book[] = booksData as Book[];
+const extras: Extra[] = extrasData as Extra[];
+
+const sortedBooks = [...books].sort((a, b) =>
+  a.releaseDate.localeCompare(b.releaseDate),
+);
+
+type TimelineItem =
+  | { kind: "book"; book: Book }
+  | { kind: "extra"; extra: Extra; book: Book };
+
+const timeline: TimelineItem[] = [];
+
+for (const book of sortedBooks) {
+  const bookExtras = extras
+    .filter((e) => e.parentBookId === book.id)
+    .sort((a, b) => a.chronology - b.chronology);
+
+  const preExtras = bookExtras.filter((e) => e.chronology < 1);
+  const postExtras = bookExtras.filter((e) => e.chronology >= 1);
+
+  for (const extra of preExtras) {
+    timeline.push({ kind: "extra", extra, book });
+  }
+
+  timeline.push({ kind: "book", book });
+
+  for (const extra of postExtras) {
+    timeline.push({ kind: "extra", extra, book });
+  }
+}
+---
+
+<PortfolioLayout
+  title="Reading Order"
+  description="The complete chronological reading order for all Martina Mustermann books and bonus content."
+>
+  <section class="max-w-3xl section-wrap py-12">
+    <h1 class="heading-hero text-4xl sm:text-5xl">Reading Order</h1>
+    <p class="text-base body-text mt-2 mb-12">
+      The full chronological journey. Main books are major stops; bonus scenes
+      sit between the chapters they belong to.
+    </p>
+
+    <div class="relative">
+      <div class="absolute left-5 sm:left-6 top-0 bottom-0 w-px bg-border">
+      </div>
+
+      <div class="space-y-8">
+        {
+          timeline.map((item) => {
+            if (item.kind === "book") {
+              const { book } = item;
+              const year = new Date(book.releaseDate).getFullYear();
+              return (
+                <div class="relative flex items-start gap-4 sm:gap-6">
+                  <div class="relative z-10 w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-accent flex items-center justify-center shrink-0 ring-4 ring-surface">
+                    <img
+                      src={book.coverImage}
+                      alt=""
+                      class="w-8 sm:w-10 h-8 sm:h-10 rounded-full object-cover"
+                    />
+                  </div>
+                  <div class="flex-1 glass-card p-5">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-xs font-medium text-accent-text uppercase tracking-wider">
+                        {year}
+                      </span>
+                      {book.series !== "Standalone" && (
+                        <span class="text-xs text-text-tertiary">
+                          {book.series} #
+                          {book.positionInSeries % 1 === 0
+                            ? book.positionInSeries.toFixed(0)
+                            : book.positionInSeries}
+                        </span>
+                      )}
+                    </div>
+                    <h2 class="heading-section text-xl">
+                      <a
+                        href={`/books/${book.id}`}
+                        class="hover:text-accent-text transition-safe"
+                      >
+                        {book.title}
+                      </a>
+                    </h2>
+                  </div>
+                </div>
+              );
+            } else {
+              const { extra, book } = item;
+              return (
+                <div class="relative flex items-start gap-4 sm:gap-6">
+                  <div class="relative z-10 w-4 h-4 rounded-full bg-surface border-2 border-border mt-3 ml-3 sm:ml-4 shrink-0" />
+                  <div class="flex-1 bg-surface border border-border rounded-lg p-4">
+                    <Badge kind="dynamic" uppercase>
+                      {extra.timelineContext}
+                    </Badge>
+                    <p class="text-sm font-medium text-text-primary mt-2">
+                      {book.title} — {extra.type} Scene
+                    </p>
+                    <Button
+                      variant="primary"
+                      size="xs"
+                      href="/newsletter"
+                      class="mt-3"
+                    >
+                      Join Newsletter to Read
+                    </Button>
+                  </div>
+                </div>
+              );
+            }
+          })
+        }
+      </div>
+    </div>
+  </section>
+</PortfolioLayout>

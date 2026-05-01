@@ -1,0 +1,64 @@
+---
+import PortfolioLayout from "../layouts/PortfolioLayout.astro";
+import Button from "../components/Button.astro";
+---
+
+<PortfolioLayout
+  title="About"
+  description="About Martina Mustermann — A short summary of the person goes here.."
+>
+  <section class="max-w-3xl section-wrap py-12 sm:py-16">
+    <h1 class="heading-hero text-5xl sm:text-6xl">About Martina</h1>
+
+    <div class="mt-8 space-y-6 text-base body-text">
+      <p class="drop-cap">
+        Li Europan lingues es membres del sam familie. Lor separat existentie es
+        un myth. Por scientie, musica, sport etc, litot Europa usa li sam
+        vocabular. Li lingues differe solmen in li grammatica, li pronunciation
+        e li plu commun vocabules.
+      </p>
+
+      <p>
+        Omnicos directe al desirabilite de un nov lingua franca: On refusa
+        continuar payar custosi traductores. At solmen va esser necessi far
+        uniform grammatica, pronunciation e plu sommun paroles.
+      </p>
+
+      <p>
+        Ma quande lingues coalesce, li grammatica del resultant lingue es plu
+        simplic e regulari quam ti del coalescent lingues. Li nov lingua franca
+        va esser plu simplic e regulari quam li existent Europan lingues. It va
+        esser tam simplic quam Occidental in fact, it va esser Occidental. A un
+        Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge
+        amico dit me que Occidental es. Li Europan lingues es membres del sam
+        familie. Lor separat existentie es un myth. Por scientie, musica,
+      </p>
+    </div>
+
+    <div class="mt-8 glass-card p-6">
+      <p class="font-heading text-2xl font-bold text-text-primary">
+        Subheading
+      </p>
+      <p class="text-sm body-text mt-2">
+        A small river named Duden flows by their place and supplies it with the
+        necessary regelialia. It is a paradisematic country, in which roasted
+        parts of sentences fly into your mouth.
+      </p>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <Button variant="primary" size="sm" href="/books">
+        Browse the Library
+      </Button>
+      <Button
+        variant="secondary"
+        size="sm"
+        href="https://instagram.com/home"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Follow on Instagram
+      </Button>
+    </div>
+  </section>
+</PortfolioLayout>

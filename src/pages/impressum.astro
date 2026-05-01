@@ -1,0 +1,41 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+---
+
+<LegalLayout title="Impressum" noindex={true}>
+  <section class="max-w-3xl section-wrap py-12 sm:py-16">
+    <h1 class="heading-hero text-3xl">Impressum</h1>
+
+    <div class="mt-8 space-y-6 text-base body-text">
+      <div>
+        <h2 class="heading-section text-xl mb-2">
+          Information pursuant to &sect; 5 TMG
+        </h2>
+        <p>
+          Martina Mustermann<br />
+          Musterstra&szlig;e 111<br />
+          10627 Berlin
+        </p>
+      </div>
+
+      <div>
+        <h2 class="heading-section text-xl mb-2">Contact</h2>
+        <p>
+          Telefon: &#91;Telefonnummer&#93;<br />
+          E-Mail: mustermann[at]musterfirma.de
+        </p>
+      </div>
+
+      <div>
+        <h2 class="heading-section text-xl mb-2">Copyright</h2>
+        <p>
+          The content and works created by the site operator on these pages are
+          subject to German copyright law. Duplication, processing,
+          distribution, and any form of commercialization of such material
+          beyond the scope of the copyright law shall require the prior written
+          consent of its respective author or creator.
+        </p>
+      </div>
+    </div>
+  </section>
+</LegalLayout>

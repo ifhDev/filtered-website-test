@@ -1,0 +1,46 @@
+---
+import ImmersiveLayout from '../../layouts/ImmersiveLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<ImmersiveLayout title={post.data.title} description={post.data.excerpt}>
+  <article class="max-w-3xl section-wrap py-12 sm:py-16">
+    <header class="mb-8">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: post.data.title }]} />
+      <time class="text-xs text-text-tertiary" datetime={post.data.date.toISOString()}>
+        {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <h1 class="heading-hero text-3xl mt-2">
+        {post.data.title}
+      </h1>
+    </header>
+
+    <div class="prose prose-invert max-w-none
+      prose-headings:font-heading prose-headings:text-text-primary
+      prose-p:text-text-secondary prose-p:leading-relaxed
+      prose-a:text-accent-text prose-a:no-underline hover:prose-a:underline
+      prose-strong:text-text-primary
+      prose-hr:border-border
+      prose-blockquote:border-accent prose-blockquote:text-text-secondary">
+      <Content />
+    </div>
+
+    <div class="mt-12 pt-8 divider">
+      <a href="/blog" class="link-accent">
+        &larr; Back to Blog
+      </a>
+    </div>
+  </article>
+</ImmersiveLayout>

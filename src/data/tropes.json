@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "trope-1",
+    "name": "Trope 1",
+    "description": "Trope description. For the curious.",
+    "featured": true,
+    "canonical": true
+  },
+  {
+    "slug": "trope-10",
+    "name": "Trope 10",
+    "description": "Another description of a trope. This one isn't featured.",
+    "featured": false,
+    "canonical": false
+  },
+  {
+    "slug": "trope-11",
+    "name": "Trope 11",
+    "description": "Description of the trope.",
+    "featured": false,
+    "canonical": false
+  },
+  {
+    "slug": "trope-12",
+    "name": "Trope 12",
+    "description": "Trope description in a few evocative words.",
+    "featured": false,
+    "canonical": false
+  },
+  {
+    "slug": "trope-2",
+    "name": "Trope 2",
+    "description": "Trope description in a few evocative words.",
+    "featured": false,
+    "canonical": false
+  },
+  {
+    "slug": "trope-3",
+    "name": "Trope 3",
+    "description": "Trope description in a few evocative words.",
+    "featured": true,
+    "canonical": true
+  },
+  {
+    "slug": "trope-4",
+    "name": "Trope 4",
+    "description": "Trope description in a few evocative words.",
+    "featured": false,
+    "canonical": false
+  },
+  {
+    "slug": "trope-5",
+    "name": "Trope 5",
+    "description": "Trope description in a few evocative words.",
+    "featured": false,
+    "canonical": false
+  },
+  {
+    "slug": "trope-6",
+    "name": "Trope 6",
+    "description": "Trope description in a few evocative words.",
+    "featured": false,
+    "canonical": false
+  },
+  {
+    "slug": "trope-7",
+    "name": "Trope 7",
+    "description": "Trope description in a few evocative words.",
+    "featured": false,
+    "canonical": false
+  },
+  {
+    "slug": "trope-8",
+    "name": "Trope 8",
+    "description": "Trope description in a few evocative words.",
+    "featured": true,
+    "canonical": true
+  },
+  {
+    "slug": "trope-9",
+    "name": "Trope 9",
+    "description": "Trope description in a few evocative words.",
+    "featured": false,
+    "canonical": false
+  }
+]

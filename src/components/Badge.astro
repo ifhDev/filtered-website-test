@@ -1,0 +1,28 @@
+---
+interface Props {
+  kind?: 'dynamic' | 'trope' | 'trope-accent';
+  href?: string;
+  uppercase?: boolean;
+}
+
+const { kind = 'dynamic', href, uppercase = false } = Astro.props;
+
+const classMap: Record<string, string> = {
+  dynamic: 'badge-dynamic',
+  trope: 'badge-trope',
+  'trope-accent': 'badge-trope-link',
+};
+
+const base = classMap[kind];
+const classes = uppercase ? `${base} uppercase tracking-wider` : base;
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <span class={classes}>
+    <slot />
+  </span>
+)}

@@ -1,0 +1,268 @@
+---
+import PortfolioLayout from "../../layouts/PortfolioLayout.astro";
+import BookCard from "../../components/BookCard.astro";
+import Button from "../../components/Button.astro";
+import Badge from "../../components/Badge.astro";
+import type { Book, Trope } from "../types";
+import booksData from "../../data/books.json";
+import tropesData from "../../data/tropes.json";
+
+const books: Book[] = booksData as Book[];
+const featuredTropes: Trope[] = (tropesData as Trope[]).filter(
+  (t) => t.featured,
+);
+
+const recentBook = books.find((b) => b.isRecent);
+const remaining = books.filter((b) => !b.isRecent);
+
+const grouped: Record<string, Book[]> = {};
+for (const book of remaining) {
+  const key = book.series;
+  if (!grouped[key]) grouped[key] = [];
+  grouped[key].push(book);
+}
+
+const sortedSeries = Object.entries(grouped)
+  .map(([series, seriesBooks]) => {
+    const maxDate = seriesBooks.reduce(
+      (max, b) => (b.releaseDate > max ? b.releaseDate : max),
+      seriesBooks[0].releaseDate,
+    );
+    return {
+      series,
+      books: seriesBooks.sort(
+        (a, b) => a.positionInSeries - b.positionInSeries,
+      ),
+      maxDate,
+    };
+  })
+  .sort((a, b) => b.maxDate.localeCompare(a.maxDate));
+---
+
+<PortfolioLayout
+  title="Books"
+  description="Browse the full book catalog of Martina Mustermann — all kinds of beautiful stock images."
+>
+  <section class="max-w-6xl section-wrap py-12">
+    <h1 class="heading-hero text-5xl sm:text-6xl">Full Library</h1>
+    <p class="text-base body-text mt-2">
+      Every story. Every trope. Every guaranteed HEA.
+    </p>
+
+    <!-- <a href="/reading-order" class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-accent text-white text-sm font-medium rounded-lg hover:bg-accent-hover motion-reduce:transition-none transition-colors duration-150">
+      View Reading Order &rarr;
+    </a> -->
+
+    <!-- AO3-STYLE FILTER ENGINE (Hidden — ready for future implementation)
+    ============================================================
+    This filter engine supports Include (AND logic — match all selected)
+    and Exclude (NOT logic — hide if present) filtering by tropes and dynamics.
+    To activate: remove this HTML comment wrapper and connect the JS below.
+
+    <div id="filter-engine" class="mt-8 p-6 bg-surface-alt/60 backdrop-blur-md border border-border rounded-xl">
+      <h2 class="font-heading text-xl font-semibold text-text-primary mb-4">Filter Books</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <fieldset>
+          <legend class="text-sm font-medium text-text-primary mb-2">Include Tropes (AND)</legend>
+          <div class="flex flex-wrap gap-2">
+            {allTropes.map((trope) => (
+              <label class="inline-flex items-center gap-1.5 text-sm text-text-secondary cursor-pointer">
+                <input type="checkbox" name="include-trope" value={trope} class="filter-include-trope accent-accent w-4 h-4" />
+                {trope}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="text-sm font-medium text-text-primary mb-2">Exclude Tropes (NOT)</legend>
+          <div class="flex flex-wrap gap-2">
+            {allTropes.map((trope) => (
+              <label class="inline-flex items-center gap-1.5 text-sm text-text-secondary cursor-pointer">
+                <input type="checkbox" name="exclude-trope" value={trope} class="filter-exclude-trope accent-destructive w-4 h-4" />
+                {trope}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="text-sm font-medium text-text-primary mb-2">Include Dynamics (AND)</legend>
+          <div class="flex flex-wrap gap-2">
+            {allDynamics.map((dyn) => (
+              <label class="inline-flex items-center gap-1.5 text-sm text-text-secondary cursor-pointer">
+                <input type="checkbox" name="include-dynamic" value={dyn} class="filter-include-dynamic accent-accent w-4 h-4" />
+                {dyn}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend class="text-sm font-medium text-text-primary mb-2">Exclude Dynamics (NOT)</legend>
+          <div class="flex flex-wrap gap-2">
+            {allDynamics.map((dyn) => (
+              <label class="inline-flex items-center gap-1.5 text-sm text-text-secondary cursor-pointer">
+                <input type="checkbox" name="exclude-dynamic" value={dyn} class="filter-exclude-dynamic accent-destructive w-4 h-4" />
+                {dyn}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="mt-4 flex gap-2">
+        <button id="filter-apply" class="inline-flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm font-medium rounded-lg hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-150">
+          Apply Filters
+        </button>
+        <button id="filter-clear" class="inline-flex items-center gap-2 px-4 py-2 bg-surface-alt/60 text-text-primary text-sm font-medium rounded-lg border border-border hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-150">
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // AO3-Style Filter Engine Client-Side Logic
+      const bookItems = document.querySelectorAll('.book-item');
+      function applyFilters() {
+        const includeTropes = Array.from(document.querySelectorAll('.filter-include-trope:checked')).map((el) => (el as HTMLInputElement).value);
+        const excludeTropes = Array.from(document.querySelectorAll('.filter-exclude-trope:checked')).map((el) => (el as HTMLInputElement).value);
+        const includeDynamics = Array.from(document.querySelectorAll('.filter-include-dynamic:checked')).map((el) => (el as HTMLInputElement).value);
+        const excludeDynamics = Array.from(document.querySelectorAll('.filter-exclude-dynamic:checked')).map((el) => (el as HTMLInputElement).value);
+        bookItems.forEach((item) => {
+          const el = item as HTMLElement;
+          const tropes = (el.dataset.tropes || '').split('|');
+          const dynamics = (el.dataset.dynamics || '').split('|');
+          const includeTropesMatch = includeTropes.length === 0 || includeTropes.every((t) => tropes.includes(t));
+          const includeDynamicsMatch = includeDynamics.length === 0 || includeDynamics.every((d) => dynamics.includes(d));
+          const notExcluded = !excludeTropes.some((t) => tropes.includes(t)) && !excludeDynamics.some((d) => dynamics.includes(d));
+          el.style.display = includeTropesMatch && includeDynamicsMatch && notExcluded ? '' : 'none';
+        });
+      }
+      document.getElementById('filter-apply')?.addEventListener('click', applyFilters);
+      document.getElementById('filter-clear')?.addEventListener('click', () => {
+        document.querySelectorAll('.filter-include-trope, .filter-exclude-trope, .filter-include-dynamic, .filter-exclude-dynamic').forEach((el) => {
+          (el as HTMLInputElement).checked = false;
+        });
+        bookItems.forEach((item) => {
+          (item as HTMLElement).style.display = '';
+        });
+      });
+    </script>
+    ============================================================
+    END AO3-STYLE FILTER ENGINE
+    -->
+
+    {
+      recentBook && (
+        <div class="mt-10">
+          <h2 class="heading-section text-2xl mb-6">Latest Release</h2>
+          <div
+            class="book-item glass-card p-6 hover:-translate-y-2 hover:shadow-lg hover:shadow-surface-alt/50 motion-reduce:transition-none transition-all duration-300"
+            data-tropes={recentBook.tropes.join("|")}
+            data-dynamics={recentBook.dynamics.join("|")}
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div
+                class="overflow-hidden rounded-lg bg-surface mx-auto md:mx-0 w-full max-w-xs"
+                style="aspect-ratio: var(--book-aspect-ratio);"
+              >
+                <img
+                  src={recentBook.coverImage}
+                  alt={`Cover of ${recentBook.title}`}
+                  class="w-full h-full object-contain md:object-cover"
+                />
+              </div>
+              <div>
+                {recentBook.series !== "Standalone" && (
+                  <span class="series-label">
+                    {recentBook.series} #
+                    {recentBook.positionInSeries % 1 === 0
+                      ? recentBook.positionInSeries.toFixed(0)
+                      : recentBook.positionInSeries}
+                  </span>
+                )}
+                <h3 class="heading-hero text-3xl md:text-4xl">
+                  {recentBook.title}
+                </h3>
+                <div class="flex flex-wrap gap-1 mt-2">
+                  {recentBook.dynamics.map((d: string) => (
+                    <Badge kind="dynamic">{d}</Badge>
+                  ))}
+                </div>
+                <p class="text-sm md:text-base body-text mt-4">
+                  {recentBook.blurb}
+                </p>
+                <div class="mt-4 flex flex-wrap gap-3">
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    href={recentBook.purchaseOptions[0].url}
+                    target="_blank"
+                    class="w-full md:w-auto"
+                  >
+                    Buy {recentBook.purchaseOptions[0].format}
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    href={`/books/${recentBook.id}`}
+                    class="w-full md:w-auto"
+                  >
+                    Read More
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    <div class="mt-16 py-8">
+      <h2 class="heading-hero text-3xl sm:text-4xl mb-2">Featured Tropes</h2>
+      <p class="text-sm text-text-tertiary body-text mb-6">
+        Enter through the doorways that call to you.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {
+          featuredTropes.map((trope) => (
+            <a
+              href={`/books/tropes/${trope.slug}`}
+              class="glass-card p-6 group hover:border-accent motion-reduce:transition-none transition-colors duration-150"
+            >
+              <span class="font-heading text-3xl sm:text-4xl italic text-accent-text group-hover:text-text-primary motion-reduce:transition-none transition-colors duration-150 leading-tight block">
+                {trope.name}
+              </span>
+              <p class="text-sm text-text-tertiary mt-3 leading-relaxed">
+                {trope.description}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-12">
+      {
+        sortedSeries.map(({ series, books: seriesBooks }) => (
+          <div class="mt-24 pt-12 pb-6 divider bg-surface-alt/30 -mx-4 sm:-mx-6 px-4 sm:px-6 rounded-xl">
+            <h2 class="heading-hero text-3xl sm:text-4xl mb-6">{series}</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {seriesBooks.map((book) => (
+                <div
+                  class="book-item"
+                  data-tropes={book.tropes.join("|")}
+                  data-dynamics={book.dynamics.join("|")}
+                >
+                  <BookCard {...book} compact={true} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</PortfolioLayout>

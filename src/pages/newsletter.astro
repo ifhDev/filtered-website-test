@@ -1,0 +1,27 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout title="Newsletter" noindex={true}>
+  <section class="max-w-lg section-wrap py-16 flex flex-col items-center text-center gap-8">
+    <h1 class="heading-hero text-4xl sm:text-5xl">
+      Join the Newsletter
+    </h1>
+    <p class="text-base body-text">
+      Free stories. Deleted scenes. First looks at new releases. No spam, ever.
+    </p>
+
+    <div class="w-full glass-card p-8">
+      <div id="mailerlite-placeholder" class="flex flex-col items-center gap-4">
+        <p class="text-sm text-text-tertiary">MailerLite embed will appear here.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="divider py-6">
+    <div class="max-w-lg section-wrap flex justify-center gap-6 text-text-tertiary">
+      <a href="/impressum" class="link-quiet">Impressum</a>
+      <a href="/privacy" class="link-quiet">Privacy</a>
+    </div>
+  </footer>
+</LegalLayout>

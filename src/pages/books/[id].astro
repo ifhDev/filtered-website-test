@@ -1,0 +1,243 @@
+---
+import ImmersiveLayout from "../../layouts/ImmersiveLayout.astro";
+import Button from "../../components/Button.astro";
+import Badge from "../../components/Badge.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import type { Book } from "../types";
+import booksData from "../../data/books.json";
+import tropesData from "../../data/tropes.json";
+
+export function getStaticPaths() {
+  const books: Book[] = booksData as Book[];
+  return books.map((book) => ({
+    params: { id: book.id },
+    props: { book },
+  }));
+}
+
+const { book } = Astro.props;
+
+const tropesMap = new Map<string, { canonical: boolean }>();
+for (const trope of tropesData) {
+  tropesMap.set(trope.name, { canonical: trope.canonical });
+}
+
+function getTropeSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, "-").replace(/[/]/g, "-");
+}
+
+const books: Book[] = booksData as Book[];
+
+const similarBooks = (book.similarBooks ?? [])
+  .map((sb) => {
+    const match = books.find((b) => b.id === sb.slug);
+    return match ? { ...match, reason: sb.reason } : null;
+  })
+  .filter(Boolean) as (Book & { reason: string })[];
+
+const seriesBooks =
+  book.series !== "Standalone"
+    ? books
+        .filter((b) => b.series === book.series && b.id !== book.id)
+        .sort((a, b) => a.positionInSeries - b.positionInSeries)
+    : [];
+---
+
+<ImmersiveLayout
+  title={book.title}
+  description={book.blurb.slice(0, 160)}
+  tagLine={book.tagLine}
+>
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Book",
+        name: book.title,
+        author: {
+          "@type": "Person",
+          name: "Martina Mustermann",
+        },
+        genre: book.tropes,
+        datePublished: book.releaseDate,
+        keywords: [...book.tropes, ...book.dynamics].join(", "),
+        description: book.blurb.slice(0, 160),
+        image: book.coverImage,
+        url: `https://ifhdev.github.io/filtered-website/books/${book.id}`,
+      })}
+    />
+  </Fragment>
+  <section class="max-w-6xl section-wrap py-12">
+    <Breadcrumb
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Books", href: "/books" },
+        { label: book.title },
+      ]}
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div
+        class="overflow-hidden glass-card max-h-64 md:max-h-none"
+        style="aspect-ratio: var(--book-aspect-ratio);"
+      >
+        <img
+          src={book.coverImage}
+          alt={`Cover of ${book.title}: ${book.altText}`}
+          class="w-full h-full object-contain md:object-cover"
+        />
+      </div>
+
+      <div>
+        {
+          book.series !== "Standalone" && (
+            <span class="series-label">
+              {book.series} #
+              {book.positionInSeries % 1 === 0
+                ? book.positionInSeries.toFixed(0)
+                : book.positionInSeries}
+            </span>
+          )
+        }
+        <h1 class="heading-hero text-4xl sm:text-5xl md:text-6xl">
+          {book.title}
+        </h1>
+
+        <div class="flex flex-wrap gap-2 mt-3">
+          {book.dynamics.map((d: string) => <Badge kind="dynamic">{d}</Badge>)}
+          {
+            book.tropes.map((t: string) => {
+              const tropeInfo = tropesMap.get(t);
+              const isCanonical = tropeInfo?.canonical ?? false;
+              const slug = getTropeSlug(t);
+              return isCanonical ? (
+                <Badge kind="trope-accent" href={`/books/tropes/${slug}`}>
+                  {t}
+                </Badge>
+              ) : (
+                <Badge kind="trope">{t}</Badge>
+              );
+            })
+          }
+        </div>
+        {
+          book.tagLine && book.tagLine !== "" && (
+            <p class="font-heading text-xl md:text-2xl font-medium italic text-text-primary mt-6 leading-tight">
+              {book.tagLine}
+            </p>
+          )
+        }
+
+        <p
+          class={`text-sm md:text-base body-text ${book.tagLine ? "mt-3" : "mt-6"} drop-cap`}
+        >
+          {book.blurb}
+        </p>
+
+        <div class="mt-4 text-sm text-text-tertiary">
+          <p>
+            Release: {
+              new Date(book.releaseDate).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }
+          </p>
+        </div>
+
+        <div class="mt-6 flex flex-col sm:flex-row flex-wrap gap-3">
+          {
+            book.purchaseOptions && book.purchaseOptions.length > 0 ? (
+              book.purchaseOptions.map((option, index) => (
+                <Button
+                  variant={index === 0 ? "primary" : "secondary"}
+                  size="md"
+                  href={option.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-full sm:w-auto"
+                >
+                  Buy {option.format} (${option.price})
+                  {option.format === "eBook" && book.isKU && " • Free in KU"}
+                </Button>
+              ))
+            ) : (
+              <Button variant="disabled" size="md" class="w-full sm:w-auto">
+                Coming Soon
+              </Button>
+            )
+          }
+        </div>
+
+        {
+          book.readerNotes && book.readerNotes.length > 0 && (
+            <details class="mt-8 border border-border rounded-lg bg-surface-alt/60 backdrop-blur-md">
+              <summary class="px-4 py-3 cursor-pointer text-sm font-medium text-text-secondary link-hover list-none">
+                Reader Notes & Spoilers (Click to expand)
+              </summary>
+              <ul class="px-4 pb-4 text-sm body-text space-y-1">
+                {book.readerNotes.map((note: string) => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-accent-text mt-0.5 shrink-0">
+                      &middot;
+                    </span>
+                    <span>{note}</span>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )
+        }
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 divider">
+      <a href="/books" class="link-accent"> &larr; Back to Full Library </a>
+    </div>
+
+    {
+      seriesBooks.length > 0 && (
+        <div class="mt-12 pt-8 divider">
+          <h2 class="heading-section text-2xl mb-4">
+            Other books in this series
+          </h2>
+          <ul class="space-y-2">
+            {seriesBooks.map((sb) => (
+              <li class="flex items-start gap-2">
+                <span class="text-accent-text shrink-0">
+                  {sb.series} #
+                  {sb.positionInSeries % 1 === 0
+                    ? sb.positionInSeries.toFixed(0)
+                    : sb.positionInSeries}{" "}
+                  &mdash;
+                </span>
+                <a href={`/books/${sb.id}`} class="link-accent">
+                  {sb.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      similarBooks.length > 0 && (
+        <div class="mt-12 pt-8 divider">
+          <h2 class="heading-section text-2xl mb-4">Similar books</h2>
+          <ul class="space-y-3">
+            {similarBooks.map((sb) => (
+              <li>
+                <a href={`/books/${sb.id}`} class="link-accent">
+                  <span class="font-medium">{sb.reason}?</span> Try {sb.title}!
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </section>
+</ImmersiveLayout>

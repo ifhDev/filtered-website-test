@@ -1,0 +1,191 @@
+---
+import ThemeToggle from "../components/ThemeToggle.astro";
+import NewsletterFooter from "../components/NewsletterFooter.astro";
+import NewsletterPopup from "../components/NewsletterPopup.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  tagLine?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = "Author brand tag line.  — Martina Mustermann",
+  tagLine,
+  noindex = false,
+} = Astro.props;
+
+const metaDescription = tagLine || description;
+const robotsContent = noindex
+  ? "noindex, nofollow"
+  : "index, follow, max-image-preview:large";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/books", label: "Books" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={metaDescription} />
+    <meta name="robots" content={robotsContent} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title} — Martina Mustermann</title>
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-surface">
+    <div class="immersive-bg"></div>
+
+    <header
+      class="sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-border"
+    >
+      <nav
+        class="max-w-6xl section-wrap h-16 flex items-center justify-between gap-4"
+      >
+        <a
+          href="/"
+          class="font-heading text-xl font-bold text-text-primary shrink-0 tracking-tight"
+        >
+          Martina Mustermann
+        </a>
+        <ul class="hidden md:flex items-center gap-1">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="nav-link"
+                  aria-current={
+                    Astro.url.pathname === link.href ? "page" : undefined
+                  }
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="flex flex-row items-center gap-4">
+          <button
+            id="a11y-toggle-btn"
+            aria-label="Toggle accessibility mode"
+            class="icon-btn"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.007-9.963-7.178z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </button>
+          <ThemeToggle />
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden icon-btn"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden relative z-50 divider bg-surface/95 backdrop-blur-md"
+      >
+        <ul class="flex flex-col px-4 py-2">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="block nav-link"
+                  aria-current={
+                    Astro.url.pathname === link.href ? "page" : undefined
+                  }
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </header>
+
+    <main class="flex-1 relative z-10">
+      <slot />
+    </main>
+
+    <NewsletterFooter />
+
+    <NewsletterPopup currentPath={Astro.url.pathname} />
+
+    <script>
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      mobileBtn?.addEventListener("click", () => {
+        const expanded = mobileBtn.getAttribute("aria-expanded") === "true";
+        mobileBtn.setAttribute("aria-expanded", String(!expanded));
+        mobileMenu?.classList.toggle("hidden");
+      });
+
+      const a11yBtn = document.getElementById("a11y-toggle-btn");
+      function initA11y() {
+        const stored = localStorage.getItem("a11y-override");
+        if (stored === "true") {
+          document.documentElement.setAttribute("data-a11y", "true");
+        }
+      }
+      initA11y();
+      a11yBtn?.addEventListener("click", () => {
+        const current =
+          document.documentElement.getAttribute("data-a11y") === "true";
+        if (current) {
+          document.documentElement.removeAttribute("data-a11y");
+          localStorage.setItem("a11y-override", "false");
+        } else {
+          document.documentElement.setAttribute("data-a11y", "true");
+          localStorage.setItem("a11y-override", "true");
+        }
+      });
+    </script>
+  </body>
+</html>

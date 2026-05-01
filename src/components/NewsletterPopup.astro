@@ -1,0 +1,84 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const excludedPaths = ['/start-here', '/newsletter', '/impressum', '/privacy'];
+const shouldShow = !excludedPaths.includes(currentPath);
+---
+
+{shouldShow && (
+  <div
+    id="nl-popup"
+    class="fixed bottom-6 right-6 z-50 w-80 bg-surface-alt border border-border rounded-xl shadow-xl p-6 hidden"
+    role="dialog"
+    aria-label="Newsletter signup"
+  >
+    <button
+      id="nl-popup-close"
+      class="absolute top-3 right-3 icon-btn-ghost"
+      aria-label="Close newsletter popup"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <h3 class="heading-section text-xl pr-6">Stay in the Loop</h3>
+    <p class="text-sm body-text mt-2">
+      Get release alerts, exclusive excerpts, and behind-the-scenes updates. No spam, ever.
+    </p>
+    <Button variant="primary" size="sm" href="/newsletter" class="mt-4 w-full">
+      Subscribe Now
+    </Button>
+  </div>
+)}
+
+{shouldShow && (
+  <script>
+    const DISMISS_KEY = 'nl-dismiss-count';
+    const MAX_DISMISSES = 2;
+    const SCROLL_THRESHOLD = 0.3;
+
+    function getDismissCount(): number {
+      const val = localStorage.getItem(DISMISS_KEY);
+      return val ? parseInt(val, 10) : 0;
+    }
+
+    function incrementDismissCount(): void {
+      const count = getDismissCount() + 1;
+      localStorage.setItem(DISMISS_KEY, String(count));
+    }
+
+    const popup = document.getElementById('nl-popup');
+    const closeBtn = document.getElementById('nl-popup-close');
+
+    if (popup && closeBtn && getDismissCount() < MAX_DISMISSES) {
+      let hasShown = false;
+
+      function showPopup(): void {
+        if (hasShown) return;
+        hasShown = true;
+        popup.classList.remove('hidden');
+      }
+
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+        if (scrollPercent >= SCROLL_THRESHOLD) {
+          showPopup();
+        }
+      }, { passive: true });
+
+      closeBtn.addEventListener('click', () => {
+        popup.classList.add('hidden');
+        incrementDismissCount();
+      });
+    }
+  </script>
+)}

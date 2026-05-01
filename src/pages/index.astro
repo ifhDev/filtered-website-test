@@ -1,0 +1,185 @@
+---
+import PortfolioLayout from "../layouts/PortfolioLayout.astro";
+import BookCard from "../components/BookCard.astro";
+import Button from "../components/Button.astro";
+import Badge from "../components/Badge.astro";
+import type { Book } from "../types";
+import booksData from "../data/books.json";
+import { getCollection } from "astro:content";
+
+const books: Book[] = booksData as Book[];
+
+const recentBook = books.find((b) => b.isRecent);
+const featuredBooks = books.filter((b) => b.isFeatured && !b.isRecent);
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+const latestPost = posts[0];
+---
+
+<PortfolioLayout
+  title="Home"
+  description="Author brand tag line.  — Martina Mustermann"
+>
+  {
+    recentBook && (
+      <section class="bg-surface">
+        <div class="max-w-6xl section-wrap py-16 sm:py-24">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div
+              class="overflow-hidden rounded-xl bg-surface-alt border border-border mx-auto md:mx-0 w-full max-w-xs"
+              style="aspect-ratio: var(--book-aspect-ratio);"
+            >
+              <img
+                src={recentBook.coverImage}
+                alt={`Cover of ${recentBook.title}`}
+                class="w-full h-full object-contain md:object-cover"
+              />
+            </div>
+            <div>
+              {recentBook.series !== "Standalone" && (
+                <span class="series-label">
+                  {recentBook.series} #
+                  {recentBook.positionInSeries % 1 === 0
+                    ? recentBook.positionInSeries.toFixed(0)
+                    : recentBook.positionInSeries}
+                </span>
+              )}
+              <h1 class="heading-hero text-4xl sm:text-5xl md:text-7xl">
+                {recentBook.title}
+              </h1>
+              <p class="text-sm md:text-base body-text mt-4 max-w-xl">
+                {recentBook.blurb}
+              </p>
+              <div class="flex flex-wrap gap-2 mt-4">
+                {recentBook.dynamics.map((d: string) => (
+                  <Badge kind="dynamic">{d}</Badge>
+                ))}
+                {recentBook.tropes.slice(0, 4).map((t: string) => (
+                  <Badge kind="trope">{t}</Badge>
+                ))}
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  href={recentBook.purchaseOptions[0].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-full md:w-auto"
+                >
+                  Buy {recentBook.purchaseOptions[0].format}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  href={`/books/${recentBook.id}`}
+                  class="w-full md:w-auto"
+                >
+                  Read More
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    featuredBooks.length > 0 && (
+      <section class="py-12 sm:py-16">
+        <div class="max-w-6xl section-wrap">
+          <h2 class="heading-hero text-4xl sm:text-5xl">Browse the Archive</h2>
+          <p class="text-base body-text mt-2">
+            Featured stories from across Martina's catalog.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+            {featuredBooks.map((book) => (
+              <BookCard {...book} compact={true} />
+            ))}
+          </div>
+
+          <div class="mt-10 text-center">
+            <Button variant="primary" size="sm" href="/books">
+              View Full Library
+            </Button>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    latestPost && (
+      <section class="divider">
+        <div class="max-w-6xl section-wrap py-12 sm:py-16">
+          <div class="flex items-end justify-between gap-4 mb-6">
+            <h2 class="heading-hero text-3xl sm:text-4xl">Latest News</h2>
+            <a href="/blog" class="link-accent shrink-0">
+              All Posts &rarr;
+            </a>
+          </div>
+          <a
+            href={`/blog/${latestPost.id}`}
+            class="group block glass-card p-6 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent motion-reduce:transition-none transition-colors duration-150"
+          >
+            <time
+              class="text-xs text-text-tertiary"
+              datetime={latestPost.data.date.toISOString()}
+            >
+              {latestPost.data.date.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <h3 class="heading-section text-xl mt-2 group-hover:text-accent-text transition-safe">
+              {latestPost.data.title}
+            </h3>
+            {latestPost.data.excerpt && (
+              <p class="text-sm body-text mt-2">{latestPost.data.excerpt}</p>
+            )}
+          </a>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="divider">
+    <div class="max-w-6xl section-wrap py-12 sm:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <div class="md:col-span-2">
+          <h2 class="heading-hero text-3xl sm:text-4xl mb-4">About Martina</h2>
+          <p class="text-base body-text drop-cap">
+            One morning, when Gregor Samsa woke from troubled dreams, he found
+            himself transformed in his bed into a horrible vermin. He lay on his
+            armour-like back, and if he lifted his head a little he could see
+            his brown belly, slightly domed and divided by arches into stiff
+            sections.
+          </p>
+        </div>
+        <div class="flex md:justify-end">
+          <a href="/about" class="link-accent shrink-0">
+            Read Full Bio &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface-alt divider">
+    <div class="max-w-6xl section-wrap py-12 sm:py-16 text-center">
+      <p
+        class="font-heading text-3xl sm:text-4xl font-bold text-text-primary leading-tight"
+      >
+        Author brand tag line.
+      </p>
+      <p class="text-base body-text mt-3 max-w-lg mx-auto">
+        A quick summary of the brand promise.
+      </p>
+    </div>
+  </section>
+</PortfolioLayout>

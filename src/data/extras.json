@@ -1,0 +1,50 @@
+[
+  {
+    "parentBookId": "what-the-dark-remembers",
+    "type": "Cold",
+    "chronology": 0.5,
+    "timelineContext": "Set between the events at Halloway House and Eli's return — Sasha's first month of survival alone.",
+    "requirement": "Newsletter Signup",
+    "bookfunnelLink": "https://bookfunnel.com/abyss-cold"
+  },
+  {
+    "parentBookId": "what-the-dark-remembers",
+    "type": "Warm",
+    "chronology": 1.5,
+    "timelineContext": "A single night of peace between books one and two — before the hunters close in.",
+    "requirement": "Newsletter Signup",
+    "bookfunnelLink": "https://bookfunnel.com/abyss-warm"
+  },
+  {
+    "parentBookId": "a-crown-of-crimson",
+    "type": "Cold",
+    "chronology": 0.5,
+    "timelineContext": "Darius's first night as a newly-turned vampire, before the Court claims him.",
+    "requirement": "Newsletter Signup",
+    "bookfunnelLink": "https://bookfunnel.com/bloodcourt-cold"
+  },
+  {
+    "parentBookId": "a-crown-of-crimson",
+    "type": "Warm",
+    "chronology": 1.5,
+    "timelineContext": "The morning after the blood bond is sealed — a rare moment of tenderness between Darius, Kael, and Ronan.",
+    "requirement": "Newsletter Signup",
+    "bookfunnelLink": "https://bookfunnel.com/bloodcourt-warm"
+  },
+  {
+    "parentBookId": "our-monstrous-lies",
+    "type": "Cold",
+    "chronology": -0.5,
+    "timelineContext": "Jem's last night before arriving at the manor — the debt comes due.",
+    "requirement": "Newsletter Signup",
+    "bookfunnelLink": "https://bookfunnel.com/monstrous-cold"
+  },
+  {
+    "parentBookId": "the-ember-and-the-eclipse",
+    "type": "Cold",
+    "chronology": 0.5,
+    "timelineContext": "Kaelith's disgraced departure from the Ember Court — the night before the arranged marriage.",
+    "requirement": "Newsletter Signup",
+    "bookfunnelLink": "https://bookfunnel.com/realms-cold"
+  }
+]

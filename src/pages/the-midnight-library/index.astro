@@ -1,0 +1,125 @@
+---
+import LegalLayout from "../../layouts/LegalLayout.astro";
+import Button from "../../components/Button.astro";
+import Badge from "../../components/Badge.astro";
+import type { Book, Extra } from "../types";
+import booksData from "../../data/books.json";
+import extrasData from "../../data/extras.json";
+
+const books: Book[] = booksData as Book[];
+const extras: Extra[] = extrasData as Extra[];
+
+const grouped: Record<string, { book: Book; extras: Extra[] }> = {};
+for (const book of books) {
+  const bookExtras = extras
+    .filter((e) => e.parentBookId === book.id)
+    .sort((a, b) => a.chronology - b.chronology);
+  if (bookExtras.length > 0) {
+    grouped[book.id] = { book, extras: bookExtras };
+  }
+}
+---
+
+<LegalLayout title="The Midnight Library" noindex={true}>
+  <div
+    id="vault-gate"
+    class="max-w-md section-wrap py-20 flex flex-col items-center text-center gap-6"
+  >
+    <h1 class="heading-hero text-4xl sm:text-5xl">The Midnight Library</h1>
+    <p class="text-base body-text">
+      This vault contains exclusive bonus content. Enter the password to unlock.
+    </p>
+    <form id="vault-form" class="w-full flex flex-col gap-4 items-center">
+      <label for="vault-password" class="sr-only">Password</label>
+      <input
+        id="vault-password"
+        type="password"
+        placeholder="Enter password"
+        autocomplete="off"
+        class="w-full max-w-xs px-4 py-3 bg-surface-alt/60 border border-border rounded-lg text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-safe"
+      />
+      <Button variant="primary" type="submit">Unlock</Button>
+      <p id="vault-error" class="text-sm text-destructive hidden">
+        Incorrect password. Try again.
+      </p>
+    </form>
+  </div>
+
+  <div id="vault-content" class="hidden">
+    <section class="max-w-4xl section-wrap py-12">
+      <h1 class="heading-hero text-4xl sm:text-5xl text-center">
+        The Midnight Library
+      </h1>
+      <p class="text-base body-text mt-2 text-center mb-12">
+        Exclusive bonus scenes, deleted content, and reader magnets.
+      </p>
+
+      <div class="space-y-12">
+        {
+          Object.values(grouped).map(({ book, extras: bookExtras }) => (
+            <div>
+              <h2 class="font-heading text-2xl font-bold text-text-primary mb-4">
+                {book.title}
+              </h2>
+              <div class="space-y-4">
+                {bookExtras.map((extra) => (
+                  <div class="glass-card p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div class="flex-1">
+                      <p class="text-sm body-text">{extra.timelineContext}</p>
+                    </div>
+                    <Button
+                      variant="primary"
+                      href={extra.bookfunnelLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="shrink-0"
+                    >
+                      Read on Bookfunnel
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+
+  <noscript>
+    <div class="max-w-md section-wrap py-20 text-center">
+      <p class="text-base body-text">
+        Please enable JavaScript to view the secret library.
+      </p>
+    </div>
+  </noscript>
+</LegalLayout>
+
+<script>
+  const gate = document.getElementById("vault-gate");
+  const content = document.getElementById("vault-content");
+  const form = document.getElementById("vault-form") as HTMLFormElement | null;
+  const input = document.getElementById(
+    "vault-password",
+  ) as HTMLInputElement | null;
+  const error = document.getElementById("vault-error");
+
+  function unlock() {
+    gate?.classList.add("hidden");
+    content?.classList.remove("hidden");
+  }
+
+  if (localStorage.getItem("vault-unlocked") === "true") {
+    unlock();
+  }
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (input?.value === "mellon") {
+      localStorage.setItem("vault-unlocked", "true");
+      unlock();
+    } else {
+      error?.classList.remove("hidden");
+    }
+  });
+</script>

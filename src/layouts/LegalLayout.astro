@@ -1,0 +1,64 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = "Legal information — Martina Mustermann",
+  noindex = false,
+} = Astro.props;
+
+const robotsContent = noindex
+  ? "noindex, nofollow"
+  : "index, follow, max-image-preview:large";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title} — Martina Mustermann</title>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <header class="sticky top-0 z-40 bg-surface border-b border-border">
+      <nav
+        class="max-w-6xl section-wrap h-16 flex items-center justify-between gap-8"
+      >
+        <a
+          href="/"
+          class="font-heading text-lg font-bold text-text-primary shrink-0"
+        >
+          Martina Mustermann
+        </a>
+        <a href="/" class="nav-link-minimal"> &larr; Back to site </a>
+      </nav>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="divider py-8">
+      <div class="max-w-6xl section-wrap text-center">
+        <p class="text-xs text-text-tertiary">
+          &copy; 2026 Martina Mustermann. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

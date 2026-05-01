@@ -1,0 +1,59 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import Button from "../components/Button.astro";
+import Badge from "../components/Badge.astro";
+import type { Book } from "../types";
+import booksData from "../data/books.json";
+
+const books: Book[] = booksData as Book[];
+const latestBook = books.find((b) => b.isRecent);
+---
+
+<LegalLayout title="Start Here" noindex={true}>
+  <section
+    class="max-w-lg section-wrap py-16 flex flex-col items-center text-center gap-8"
+  >
+    <h1 class="heading-hero text-4xl sm:text-5xl">Start Here</h1>
+    <p class="text-base body-text">
+      Everything you need, one page. Welcome in.
+    </p>
+
+    {
+      latestBook && (
+        <a
+          href={`/books/${latestBook.id}`}
+          class="w-full glass-card p-6 hover:border-accent transition-safe text-left"
+        >
+          <Badge kind="dynamic" uppercase>
+            Latest Book
+          </Badge>
+          <h2 class="font-heading text-2xl font-bold text-text-primary mt-1">
+            {latestBook.title}
+          </h2>
+          {latestBook.tagLine && (
+            <p class="text-sm text-text-tertiary mt-1 italic">
+              {latestBook.tagLine}
+            </p>
+          )}
+        </a>
+      )
+    }
+
+    <Button variant="primary" href="/newsletter" class="w-full"
+      >Join the Newsletter</Button
+    >
+
+    <div class="w-full divider pt-6">
+      <h3
+        class="text-sm font-semibold text-text-primary mb-3 uppercase tracking-wider"
+      >
+        Find Me
+      </h3>
+      <div class="flex flex-col gap-3">
+        <a href="#" class="link-quiet"> Instagram </a>
+        <a href="#" class="link-quiet"> TikTok </a>
+        <a href="#" class="link-quiet"> Goodreads </a>
+      </div>
+    </div>
+  </section>
+</LegalLayout>
