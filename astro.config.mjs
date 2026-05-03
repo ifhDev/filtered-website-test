@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://ifhDev.github.io',
   base: '/filtered-website-test',
+  outDir: './dist',
   vite: {
     plugins: [tailwindcss()],
   },
