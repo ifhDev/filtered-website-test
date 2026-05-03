@@ -25,9 +25,9 @@ const robotsContent = noindex
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/books", label: "Books" },
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
+  { href: "../books", label: "Books" },
+  { href: "../about", label: "About" },
+  { href: "../blog", label: "Blog" },
 ];
 ---
 
@@ -58,7 +58,7 @@ const navLinks = [
         class="max-w-6xl section-wrap h-16 flex items-center justify-between gap-4"
       >
         <a
-          href="/"
+          href="../"
           class="font-heading text-xl font-bold text-text-primary shrink-0 tracking-tight"
         >
           Martina Mustermann
@@ -68,7 +68,7 @@ const navLinks = [
             navLinks.map((link) => (
               <li>
                 <a
-                  href={link.href}
+                  href={getHref(link.href)}
                   class="nav-link"
                   aria-current={
                     Astro.url.pathname === link.href ? "page" : undefined
@@ -135,8 +135,8 @@ const navLinks = [
             navLinks.map((link) => (
               <li>
                 <a
-                  href={link.href}
-                  class="block nav-link"
+                  href={getHref(link.href)}
+                  class="nav-link"
                   aria-current={
                     Astro.url.pathname === link.href ? "page" : undefined
                   }

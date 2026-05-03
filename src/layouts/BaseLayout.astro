@@ -24,10 +24,16 @@ const robotsContent = noindex
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/books", label: "Books" },
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
+  { href: "../books", label: "Books" },
+  { href: "../about", label: "About" },
+  { href: "../blog", label: "Blog" },
 ];
+
+const base = Astro.url.pathname.split("/").slice(0, -1).join("/") || "/";
+const getHref = (path: string) => {
+  if (path === "/") return "/";
+  return `/${base.replace(/^\/+/, "")}/${path}`.replace(/\/+/g, "/");
+};
 ---
 
 <!doctype html>
@@ -38,6 +44,7 @@ const navLinks = [
     <meta name="description" content={metaDescription} />
     <meta name="robots" content={robotsContent} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,7 +62,7 @@ const navLinks = [
         class="max-w-6xl section-wrap h-16 flex items-center justify-between gap-4"
       >
         <a
-          href="/"
+          href="../"
           class="font-heading text-xl font-bold text-text-primary shrink-0 tracking-tight"
         >
           Martina Mustermann
@@ -68,7 +75,7 @@ const navLinks = [
                   href={link.href}
                   class="nav-link"
                   aria-current={
-                    Astro.url.pathname === link.href ? "page" : undefined
+                    Astro.url.pathname === link.href.replace(/\.\.\//, "/") ? "page" : undefined
                   }
                 >
                   {link.label}
@@ -129,9 +136,9 @@ const navLinks = [
               <li>
                 <a
                   href={link.href}
-                  class="block nav-link"
+                  class="nav-link"
                   aria-current={
-                    Astro.url.pathname === link.href ? "page" : undefined
+                    Astro.url.pathname === link.href.replace(/\.\.\//, "/") ? "page" : undefined
                   }
                 >
                   {link.label}
