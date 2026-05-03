@@ -1,11 +1,6 @@
 ---
+import { getPrefix, navHref } from "../utils/nav";
 import "../styles/global.css";
-
-const base = Astro.url.pathname.split("/").slice(0, -1).join("/") || "/";
-const getHref = (path: string) => {
-  if (path === "/") return "/";
-  return `/${base.replace(/^\/+/, "")}${path}`.replace(/\/+/g, "/");
-};
 
 interface Props {
   title: string;
@@ -22,6 +17,8 @@ const {
 const robotsContent = noindex
   ? "noindex, nofollow"
   : "index, follow, max-image-preview:large";
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <!doctype html>
@@ -46,12 +43,12 @@ const robotsContent = noindex
         class="max-w-6xl section-wrap h-16 flex items-center justify-between gap-8"
       >
         <a
-          href={getHref("/")}
+          href={prefix}
           class="font-heading text-lg font-bold text-text-primary shrink-0"
         >
           Martina Mustermann
         </a>
-        <a href={getHref("/")} class="nav-link-minimal"> &larr; Back to site </a>
+        <a href={prefix} class="nav-link-minimal"> &larr; Back to site </a>
       </nav>
     </header>
 

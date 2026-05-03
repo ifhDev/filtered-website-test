@@ -1,5 +1,7 @@
 ---
+import { getPrefix, navHref } from "../utils/nav";
 
+const prefix = getPrefix(Astro.url);
 ---
 
 <footer class="divider bg-surface">
@@ -83,10 +85,10 @@
         <h3 class="heading-section text-lg mb-4">Legal</h3>
         <ul class="flex flex-col gap-2">
           <li>
-            <a href="/impressum" class="link-quiet">Impressum</a>
+            <a href={navHref(prefix, "/impressum")} class="link-quiet">Impressum</a>
           </li>
           <li>
-            <a href="/privacy" class="link-quiet">Privacy Policy</a>
+            <a href={navHref(prefix, "/privacy")} class="link-quiet">Privacy Policy</a>
           </li>
         </ul>
       </div>

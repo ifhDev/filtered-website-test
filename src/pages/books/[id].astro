@@ -6,6 +6,7 @@ import Breadcrumb from "../../components/Breadcrumb.astro";
 import type { Book } from "../types";
 import booksData from "../../data/books.json";
 import tropesData from "../../data/tropes.json";
+import { getPrefix, navHref } from "../../utils/nav";
 
 export function getStaticPaths() {
   const books: Book[] = booksData as Book[];
@@ -41,6 +42,8 @@ const seriesBooks =
         .filter((b) => b.series === book.series && b.id !== book.id)
         .sort((a, b) => a.positionInSeries - b.positionInSeries)
     : [];
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <ImmersiveLayout
@@ -71,8 +74,8 @@ const seriesBooks =
   <section class="max-w-6xl section-wrap py-12">
     <Breadcrumb
       items={[
-        { label: "Home", href: "/" },
-        { label: "Books", href: "/books" },
+        { label: "Home", href: navHref(prefix, "/") },
+        { label: "Books", href: navHref(prefix, "/books") },
         { label: book.title },
       ]}
     />
@@ -112,7 +115,7 @@ const seriesBooks =
               const isCanonical = tropeInfo?.canonical ?? false;
               const slug = getTropeSlug(t);
               return isCanonical ? (
-                <Badge kind="trope-accent" href={`/books/tropes/${slug}`}>
+                <Badge kind="trope-accent" href={navHref(prefix, `/books/tropes/${slug}`)}>
                   {t}
                 </Badge>
               ) : (
@@ -194,7 +197,7 @@ const seriesBooks =
     </div>
 
     <div class="mt-12 pt-8 divider">
-      <a href="/books" class="link-accent"> &larr; Back to Full Library </a>
+      <a href={navHref(prefix, "/books")} class="link-accent"> &larr; Back to Full Library </a>
     </div>
 
     {
@@ -213,7 +216,7 @@ const seriesBooks =
                     : sb.positionInSeries}{" "}
                   &mdash;
                 </span>
-                <a href={`/books/${sb.id}`} class="link-accent">
+                <a href={navHref(prefix, `/books/${sb.id}`)} class="link-accent">
                   {sb.title}
                 </a>
               </li>
@@ -230,7 +233,7 @@ const seriesBooks =
           <ul class="space-y-3">
             {similarBooks.map((sb) => (
               <li>
-                <a href={`/books/${sb.id}`} class="link-accent">
+                <a href={navHref(prefix, `/books/${sb.id}`)} class="link-accent">
                   <span class="font-medium">{sb.reason}?</span> Try {sb.title}!
                 </a>
               </li>

@@ -2,6 +2,7 @@
 import ThemeToggle from "../components/ThemeToggle.astro";
 import NewsletterFooter from "../components/NewsletterFooter.astro";
 import NewsletterPopup from "../components/NewsletterPopup.astro";
+import { getPrefix, navHref } from "../utils/nav";
 import "../styles/global.css";
 
 interface Props {
@@ -23,12 +24,16 @@ const robotsContent = noindex
   ? "noindex, nofollow"
   : "index, follow, max-image-preview:large";
 
+const prefix = getPrefix(Astro.url);
+
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "../books", label: "Books" },
-  { href: "../about", label: "About" },
-  { href: "../blog", label: "Blog" },
+  { href: "/books", label: "Books" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -58,7 +63,7 @@ const navLinks = [
         class="max-w-6xl section-wrap h-16 flex items-center justify-between gap-4"
       >
         <a
-          href="../"
+          href={prefix}
           class="font-heading text-xl font-bold text-text-primary shrink-0 tracking-tight"
         >
           Martina Mustermann
@@ -68,10 +73,10 @@ const navLinks = [
             navLinks.map((link) => (
               <li>
                 <a
-                  href={getHref(link.href)}
+                  href={navHref(prefix, link.href)}
                   class="nav-link"
                   aria-current={
-                    Astro.url.pathname === link.href ? "page" : undefined
+                    currentPath === link.href || currentPath === link.href + "/" ? "page" : undefined
                   }
                 >
                   {link.label}
@@ -135,10 +140,10 @@ const navLinks = [
             navLinks.map((link) => (
               <li>
                 <a
-                  href={getHref(link.href)}
+                  href={navHref(prefix, link.href)}
                   class="nav-link"
                   aria-current={
-                    Astro.url.pathname === link.href ? "page" : undefined
+                    currentPath === link.href || currentPath === link.href + "/" ? "page" : undefined
                   }
                 >
                   {link.label}

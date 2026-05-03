@@ -4,9 +4,12 @@ import Button from "../components/Button.astro";
 import Badge from "../components/Badge.astro";
 import type { Book } from "../types";
 import booksData from "../data/books.json";
+import { getPrefix, navHref } from "../utils/nav";
 
 const books: Book[] = booksData as Book[];
 const latestBook = books.find((b) => b.isRecent);
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <LegalLayout title="Start Here" noindex={true}>
@@ -21,7 +24,7 @@ const latestBook = books.find((b) => b.isRecent);
     {
       latestBook && (
         <a
-          href={`/books/${latestBook.id}`}
+          href={navHref(prefix, `/books/${latestBook.id}`)}
           class="w-full glass-card p-6 hover:border-accent transition-safe text-left"
         >
           <Badge kind="dynamic" uppercase>
@@ -39,7 +42,7 @@ const latestBook = books.find((b) => b.isRecent);
       )
     }
 
-    <Button variant="primary" href="/newsletter" class="w-full"
+    <Button variant="primary" href={navHref(prefix, "/newsletter")} class="w-full"
       >Join the Newsletter</Button
     >
 

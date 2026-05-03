@@ -6,6 +6,7 @@ import Badge from "../../components/Badge.astro";
 import type { Book, Trope } from "../types";
 import booksData from "../../data/books.json";
 import tropesData from "../../data/tropes.json";
+import { getPrefix, navHref } from "../../utils/nav";
 
 const books: Book[] = booksData as Book[];
 const featuredTropes: Trope[] = (tropesData as Trope[]).filter(
@@ -37,6 +38,8 @@ const sortedSeries = Object.entries(grouped)
     };
   })
   .sort((a, b) => b.maxDate.localeCompare(a.maxDate));
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <PortfolioLayout
@@ -207,7 +210,7 @@ const sortedSeries = Object.entries(grouped)
                   <Button
                     variant="secondary"
                     size="sm"
-                    href={`/books/${recentBook.id}`}
+                    href={navHref(prefix, `/books/${recentBook.id}`)}
                     class="w-full md:w-auto"
                   >
                     Read More
@@ -229,7 +232,7 @@ const sortedSeries = Object.entries(grouped)
         {
           featuredTropes.map((trope) => (
             <a
-              href={`/books/tropes/${trope.slug}`}
+              href={navHref(prefix, `/books/tropes/${trope.slug}`)}
               class="glass-card p-6 group hover:border-accent motion-reduce:transition-none transition-colors duration-150"
             >
               <span class="font-heading text-3xl sm:text-4xl italic text-accent-text group-hover:text-text-primary motion-reduce:transition-none transition-colors duration-150 leading-tight block">

@@ -2,6 +2,7 @@
 import ImmersiveLayout from '../../layouts/ImmersiveLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { getCollection, render } from 'astro:content';
+import { getPrefix, navHref } from '../../utils/nav';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -13,12 +14,14 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <ImmersiveLayout title={post.data.title} description={post.data.excerpt}>
   <article class="max-w-3xl section-wrap py-12 sm:py-16">
     <header class="mb-8">
-      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: post.data.title }]} />
+      <Breadcrumb items={[{ label: 'Home', href: navHref(prefix, '/') }, { label: 'Blog', href: navHref(prefix, '/blog') }, { label: post.data.title }]} />
       <time class="text-xs text-text-tertiary" datetime={post.data.date.toISOString()}>
         {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
       </time>
@@ -38,7 +41,7 @@ const { Content } = await render(post);
     </div>
 
     <div class="mt-12 pt-8 divider">
-      <a href="/blog" class="link-accent">
+      <a href={navHref(prefix, "/blog")} class="link-accent">
         &larr; Back to Blog
       </a>
     </div>

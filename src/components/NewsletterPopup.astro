@@ -1,11 +1,14 @@
 ---
 import Button from "./Button.astro";
+import { getPrefix, navHref } from "../utils/nav";
 
 interface Props {
   currentPath: string;
 }
 
 const { currentPath } = Astro.props;
+
+const prefix = getPrefix(Astro.url);
 
 const excludedPaths = ['/start-here', '/newsletter', '/impressum', '/privacy'];
 const shouldShow = !excludedPaths.includes(currentPath);
@@ -32,7 +35,7 @@ const shouldShow = !excludedPaths.includes(currentPath);
     <p class="text-sm body-text mt-2">
       Get release alerts, exclusive excerpts, and behind-the-scenes updates. No spam, ever.
     </p>
-    <Button variant="primary" size="sm" href="/newsletter" class="mt-4 w-full">
+    <Button variant="primary" size="sm" href={navHref(prefix, "/newsletter")} class="mt-4 w-full">
       Subscribe Now
     </Button>
   </div>

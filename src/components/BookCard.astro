@@ -3,6 +3,7 @@ import type { Book } from "../types";
 import tropesData from "../data/tropes.json";
 import Button from "./Button.astro";
 import Badge from "./Badge.astro";
+import { getPrefix, navHref } from "../utils/nav";
 
 // We extend your central Book type so we inherit all its fields automatically,
 // and just add the one prop specific to this component's layout (compact).
@@ -52,6 +53,8 @@ const sortedTropes = [...tropes]
 // in your JSON, standard JS truthiness (||) still works perfectly here.
 const displayBlurb = miniBlurb || tagLine || blurb;
 const useLineClamp = !miniBlurb && !tagLine;
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <article
@@ -85,7 +88,7 @@ const useLineClamp = !miniBlurb && !tagLine;
           const isCanonical = tropeInfo?.canonical ?? false;
           const slug = getTropeSlug(t);
           return isCanonical ? (
-            <Badge kind="trope-accent" href={`/books/tropes/${slug}`}>
+            <Badge kind="trope-accent" href={navHref(prefix, `/books/tropes/${slug}`)}>
               {t}
             </Badge>
           ) : (
@@ -110,7 +113,7 @@ const useLineClamp = !miniBlurb && !tagLine;
         </Button>
       )
     }
-    <Button variant="secondary" size="sm" href={`/books/${id}`} class="flex-1">
+    <Button variant="secondary" size="sm" href={navHref(prefix, `/books/${id}`)} class="flex-1">
       Read More
     </Button>
   </div>

@@ -6,6 +6,7 @@ import Badge from "../components/Badge.astro";
 import type { Book } from "../types";
 import booksData from "../data/books.json";
 import { getCollection } from "astro:content";
+import { getPrefix, navHref } from "../utils/nav";
 
 const books: Book[] = booksData as Book[];
 
@@ -16,6 +17,8 @@ const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
 const latestPost = posts[0];
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <PortfolioLayout
@@ -74,7 +77,7 @@ const latestPost = posts[0];
                 <Button
                   variant="secondary"
                   size="lg"
-                  href={`/books/${recentBook.id}`}
+                  href={navHref(prefix, `/books/${recentBook.id}`)}
                   class="w-full md:w-auto"
                 >
                   Read More
@@ -103,7 +106,7 @@ const latestPost = posts[0];
           </div>
 
           <div class="mt-10 text-center">
-            <Button variant="primary" size="sm" href="/books">
+            <Button variant="primary" size="sm" href={navHref(prefix, "/books")}>
               View Full Library
             </Button>
           </div>
@@ -118,12 +121,12 @@ const latestPost = posts[0];
         <div class="max-w-6xl section-wrap py-12 sm:py-16">
           <div class="flex items-end justify-between gap-4 mb-6">
             <h2 class="heading-hero text-3xl sm:text-4xl">Latest News</h2>
-            <a href="/blog" class="link-accent shrink-0">
+            <a href={navHref(prefix, "/blog")} class="link-accent shrink-0">
               All Posts &rarr;
             </a>
           </div>
           <a
-            href={`/blog/${latestPost.id}`}
+            href={navHref(prefix, `/blog/${latestPost.id}`)}
             class="group block glass-card p-6 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent motion-reduce:transition-none transition-colors duration-150"
           >
             <time
@@ -162,7 +165,7 @@ const latestPost = posts[0];
           </p>
         </div>
         <div class="flex md:justify-end">
-          <a href="/about" class="link-accent shrink-0">
+          <a href={navHref(prefix, "/about")} class="link-accent shrink-0">
             Read Full Bio &rarr;
           </a>
         </div>

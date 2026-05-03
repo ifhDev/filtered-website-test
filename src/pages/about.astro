@@ -1,6 +1,9 @@
 ---
 import PortfolioLayout from "../layouts/PortfolioLayout.astro";
 import Button from "../components/Button.astro";
+import { getPrefix, navHref } from "../utils/nav";
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <PortfolioLayout
@@ -47,7 +50,7 @@ import Button from "../components/Button.astro";
     </div>
 
     <div class="mt-8 flex flex-wrap gap-3">
-      <Button variant="primary" size="sm" href="/books">
+      <Button variant="primary" size="sm" href={navHref(prefix, "/books")}>
         Browse the Library
       </Button>
       <Button

@@ -5,6 +5,7 @@ import Breadcrumb from "../../../components/Breadcrumb.astro";
 import type { Book, Trope } from "../types";
 import booksData from "../../../data/books.json";
 import tropesData from "../../../data/tropes.json";
+import { getPrefix, navHref } from "../../../utils/nav";
 
 export function getStaticPaths() {
   const tropes: Trope[] = tropesData as Trope[];
@@ -29,14 +30,16 @@ const matchingBooks = books.filter(
 );
 
 const description = `Browse all Martina Mustermann books featuring the ${display} trope.`;
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <PortfolioLayout title={`${display} — Trope`} description={description}>
   <section class="max-w-6xl section-wrap py-12">
     <Breadcrumb
       items={[
-        { label: "Home", href: "/" },
-        { label: "Books", href: "/books" },
+        { label: "Home", href: navHref(prefix, "/") },
+        { label: "Books", href: navHref(prefix, "/books") },
         { label: display },
       ]}
     />
@@ -71,7 +74,7 @@ const description = `Browse all Martina Mustermann books featuring the ${display
     }
 
     <div class="mt-12 pt-8 divider">
-      <a href="/books" class="link-accent"> &larr; Back to Full Library </a>
+      <a href={navHref(prefix, "/books")} class="link-accent"> &larr; Back to Full Library </a>
     </div>
   </section>
 </PortfolioLayout>

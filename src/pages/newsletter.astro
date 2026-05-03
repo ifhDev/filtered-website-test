@@ -1,5 +1,8 @@
 ---
 import LegalLayout from '../layouts/LegalLayout.astro';
+import { getPrefix, navHref } from '../utils/nav';
+
+const prefix = getPrefix(Astro.url);
 ---
 
 <LegalLayout title="Newsletter" noindex={true}>
@@ -20,8 +23,8 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 
   <footer class="divider py-6">
     <div class="max-w-lg section-wrap flex justify-center gap-6 text-text-tertiary">
-      <a href="/impressum" class="link-quiet">Impressum</a>
-      <a href="/privacy" class="link-quiet">Privacy</a>
+      <a href={navHref(prefix, "/impressum")} class="link-quiet">Impressum</a>
+      <a href={navHref(prefix, "/privacy")} class="link-quiet">Privacy</a>
     </div>
   </footer>
 </LegalLayout>
