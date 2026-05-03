@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, filedialog, messagebox
+from tkinter import ttk, filedialog, messagebox, simpledialog
 import json
 import os
 
@@ -121,13 +121,30 @@ class DynamicDataManager:
 
         tk.Button(self.left_frame, text="SAVE / UPDATE ENTRY", command=self.save_entry, 
                   bg="#2ecc71", fg="white", font=("Arial", 10, "bold"), height=2).pack(pady=20, fill=tk.X)
+        tk.Button(self.left_frame, text="Add New Field to Schema", command=self.add_new_field, 
+                  bg="#3498db", fg="white", font=("Arial", 10, "bold")).pack(fill=tk.X, pady=(0, 30))
+        tk.Button(self.left_frame, text="Manage / Reorder Fields", command=self.open_schema_manager, 
+                  bg="#9b59b6", fg="white", font=("Arial", 10, "bold")).pack(fill=tk.X, pady=(0, 10))
         tk.Button(self.left_frame, text="Clear Form", command=self.clear_form).pack(fill=tk.X, pady=(0, 30))
 
-        self.tree = ttk.Treeview(self.right_frame, columns=self.current_fields, show="headings")
+        # 1. Create the scrollbar first and pack it at the very bottom
+        self.tree_xscroll = ttk.Scrollbar(self.right_frame, orient="horizontal")
+        self.tree_xscroll.pack(side=tk.BOTTOM, fill=tk.X)
+
+        # 2. Tell the Treeview to use this scrollbar
+        self.tree = ttk.Treeview(self.right_frame, columns=self.current_fields, show="headings", xscrollcommand=self.tree_xscroll.set)
+        
         for col in self.current_fields:
             self.tree.heading(col, text=col.title())
-            self.tree.column(col, width=100, anchor=tk.W)
-        self.tree.pack(expand=tk.YES, fill=tk.BOTH)
+            # Optional: You can lower the width here if you want columns narrower by default
+            self.tree.column(col, width=120, anchor=tk.W) 
+            
+        # 3. Pack the tree on top so it fills the rest of the space
+        self.tree.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH)
+        
+        # 4. Tell the scrollbar to talk back to the Treeview
+        self.tree_xscroll.config(command=self.tree.xview)
+
         self.tree.bind("<<TreeviewSelect>>", self.on_row_select)
         self.refresh_table()
 
@@ -234,6 +251,108 @@ class DynamicDataManager:
 
     def clear_form(self):
         for f in self.current_fields: self.set_widget_value(f, "")
+    
+    def add_new_field(self):
+        # Prevent editing the read-only auto-detect template
+        if self.template_var.get() == "-- Auto-Detect from JSON --":
+            messagebox.showwarning("Warning", "Please select a specific template to modify fields, not Auto-Detect.")
+            return
+
+        # Prompt user for the new field name
+        new_field = simpledialog.askstring("Add Field", "Enter new field name (e.g., camelCase or under_scores):", parent=self.root)
+        
+        if not new_field or not new_field.strip():
+            return
+            
+        new_field = new_field.strip()
+        
+        if new_field in self.current_fields:
+            messagebox.showinfo("Info", "Field already exists in this template.")
+            return
+
+        # 1. Update the configuration template
+        self.current_fields.append(new_field)
+        self.config["templates"][self.config["active_template"]] = self.current_fields
+        self.save_config()
+
+        # 2. Inject the new field into all existing JSON entries
+        if self.data:
+            for entry in self.data:
+                if new_field not in entry:
+                    entry[new_field] = ""
+            
+            # Save the updated data immediately to the file
+            if self.file_path and os.path.exists(self.file_path):
+                with open(self.file_path, 'w') as f: 
+                    json.dump(self.data, f, indent=4)
+
+        # 3. Refresh the UI to render the new entry box and table column
+        self.build_dynamic_ui()
+        messagebox.showinfo("Success", f"Field '{new_field}' successfully added to all entries.")
+
+    def open_schema_manager(self):
+        if self.template_var.get() == "-- Auto-Detect from JSON --":
+            messagebox.showwarning("Warning", "Cannot reorder Auto-Detect fields. Select a specific template.")
+            return
+
+        # Create a popup window
+        manager_window = tk.Toplevel(self.root)
+        manager_window.title(f"Manage Fields: {self.config['active_template']}")
+        manager_window.geometry("300x400")
+        manager_window.transient(self.root) # Keeps it on top of main window
+        manager_window.grab_set() # Disables main window until this is closed
+
+        tk.Label(manager_window, text="Select a field to move it:", font=("Arial", 10, "bold")).pack(pady=10)
+
+        # The Listbox to hold our fields
+        listbox = tk.Listbox(manager_window, selectmode=tk.SINGLE, font=("Arial", 11), height=12)
+        listbox.pack(fill=tk.BOTH, expand=True, padx=20)
+
+        # Populate the listbox
+        for field in self.current_fields:
+            listbox.insert(tk.END, field)
+
+        # Helper functions for moving items
+        def move_up():
+            selected = listbox.curselection()
+            if not selected or selected[0] == 0: return
+            idx = selected[0]
+            val = listbox.get(idx)
+            listbox.delete(idx)
+            listbox.insert(idx - 1, val)
+            listbox.selection_set(idx - 1)
+
+        def move_down():
+            selected = listbox.curselection()
+            if not selected or selected[0] == listbox.size() - 1: return
+            idx = selected[0]
+            val = listbox.get(idx)
+            listbox.delete(idx)
+            listbox.insert(idx + 1, val)
+            listbox.selection_set(idx + 1)
+
+        def save_new_order():
+            # Extract the new order from the listbox
+            new_order = list(listbox.get(0, tk.END))
+            
+            # Update our app state
+            self.current_fields = new_order
+            self.config["templates"][self.config["active_template"]] = new_order
+            self.save_config()
+            
+            # Refresh the main UI
+            self.build_dynamic_ui()
+            manager_window.destroy()
+
+        # Control Buttons
+        btn_frame = tk.Frame(manager_window)
+        btn_frame.pack(pady=10)
+
+        tk.Button(btn_frame, text="Move Up ⬆", command=move_up).grid(row=0, column=0, padx=5)
+        tk.Button(btn_frame, text="Move Down ⬇", command=move_down).grid(row=0, column=1, padx=5)
+        
+        tk.Button(manager_window, text="Save New Order", command=save_new_order, 
+                  bg="#2ecc71", fg="white", font=("Arial", 10, "bold")).pack(pady=10, fill=tk.X, padx=20)
 
 if __name__ == "__main__":
     root = tk.Tk()

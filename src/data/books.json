@@ -1,342 +1,375 @@
 [
-  {
-    "id": "book-1",
-    "title": "Book 1",
-    "series": "Standalone",
-    "positionInSeries": 1.0,
-    "releaseDate": "2024-03-15",
-    "coverImage": "/filtered-website-test/covers/Cover 1.jpg",
-    "altText": "Placeholder texture cover from Unsplash",
-    "blurb": "It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.",
-    "isRecent": false,
-    "isFeatured": true,
-    "tropes": [
-      "Trope 1",
-      "Trope 2",
-      "Trope 3",
-      "Trope 4",
-      "Trope 5",
-      "Trope 6"
-    ],
-    "dynamics": ["D2"],
-    "readerNotes": [
-      "warnings",
-      "and contents",
-      "optional field",
-      "will disappear if entry is empty"
-    ],
-    "isKU": true,
-    "purchaseOptions": [
-      {
-        "format": "eBook",
-        "price": "4.99",
-        "url": "https://amazon.com/dp/ZONURL01"
-      },
-      {
-        "format": "Paperback",
-        "price": "14.99",
-        "url": "https://amazon.com/dp/PAPERBACK_LINK01"
-      }
-    ],
-    "miniBlurb": "Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy.",
-    "tagLine": "Tag line. Quick and to the point",
-    "similarBooks": [
-      {
-        "slug": "book-2",
-        "reason": "Liked this book?"
-      },
-      {
-        "slug": "book-4",
-        "reason": "Was this fun to read"
-      }
-    ]
-  },
-  {
-    "id": "book-2",
-    "title": "Book 2",
-    "series": "Awesome Series",
-    "positionInSeries": 1.0,
-    "releaseDate": "2024-10-23",
-    "coverImage": "/filtered-website-test/covers/Cover 2.jpg",
-    "altText": "Placeholder texture cover from Unsplash",
-    "blurb": "It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.",
-    "isRecent": false,
-    "isFeatured": true,
-    "tropes": [
-      "Trope 1",
-      "Trope 2",
-      "Trope 3",
-      "Trope 4",
-      "Trope 5",
-      "Trope 6"
-    ],
-    "dynamics": ["D1"],
-    "readerNotes": [
-      "warnings",
-      "and contents",
-      "optional field",
-      "will disappear if entry is empty"
-    ],
-    "isKU": true,
-    "purchaseOptions": [
-      {
-        "format": "eBook",
-        "price": "4.99",
-        "url": "https://amazon.com/dp/ZONURL02"
-      },
-      {
-        "format": "Paperback",
-        "price": "14.99",
-        "url": "https://amazon.com/dp/PAPERBACK_LINK02"
-      }
-    ],
-    "miniBlurb": "Wild Question Marks and devious Semikoli, but the Little Blind Text didn\u2019t listen.",
-    "tagLine": "Another tag line. Intrigueing and brief.",
-    "similarBooks": [
-      {
-        "slug": "book-1",
-        "reason": "Liked this book"
-      },
-      {
-        "slug": "book-5",
-        "reason": "Want more of this but with other characters"
-      }
-    ]
-  },
-  {
-    "id": "book-3",
-    "title": "Book 3",
-    "series": "Awesome Series",
-    "positionInSeries": 2.0,
-    "releaseDate": "2024-10-23",
-    "coverImage": "/filtered-website-test/covers/Cover 3.jpg",
-    "altText": "Placeholder texture cover from Unsplash",
-    "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
-    "isRecent": false,
-    "isFeatured": false,
-    "tropes": [
-      "Trope 1",
-      "Trope 2",
-      "Trope 3",
-      "Trope 5",
-      "Trope 8",
-      "Trope 9"
-    ],
-    "dynamics": ["D2"],
-    "readerNotes": [
-      "warnings",
-      "and contents",
-      "optional field",
-      "will disappear if entry is empty"
-    ],
-    "isKU": false,
-    "purchaseOptions": [
-      {
-        "format": "eBook",
-        "price": "4.99",
-        "url": "https://amazon.com/dp/ZONURL02"
-      },
-      {
-        "format": "Paperback",
-        "price": "14.99",
-        "url": "https://amazon.com/dp/PAPERBACK_LINK02"
-      }
-    ],
-    "miniBlurb": "Wild Question Marks and devious Semikoli, but the Little Blind Text didn\u2019t listen.",
-    "tagLine": "One more tagline, just for show.",
-    "similarBooks": [
-      {
-        "slug": "book-1",
-        "reason": "Liked the story of the little blind text"
-      },
-      {
-        "slug": "book-5",
-        "reason": "Want a new series in the same world"
-      }
-    ]
-  },
-  {
-    "id": "book-4",
-    "title": "Book 4",
-    "series": "Awesome Series",
-    "positionInSeries": 3.0,
-    "releaseDate": "2025-05-17",
-    "coverImage": "/filtered-website-test/covers/Cover 4.jpg",
-    "altText": "Placeholder texture cover from Unsplash",
-    "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
-    "isRecent": false,
-    "isFeatured": false,
-    "tropes": [
-      "Trope 1",
-      "Trope 2",
-      "Trope 3",
-      "Trope 5",
-      "Trope 8",
-      "Trope 9"
-    ],
-    "dynamics": ["D2"],
-    "readerNotes": [
-      "warnings",
-      "and contents",
-      "optional field",
-      "will disappear if entry is empty"
-    ],
-    "isKU": false,
-    "purchaseOptions": [
-      {
-        "format": "eBook",
-        "price": "4.99",
-        "url": "https://amazon.com/dp/ZONURL02"
-      },
-      {
-        "format": "Paperback",
-        "price": "14.99",
-        "url": "https://amazon.com/dp/PAPERBACK_LINK02"
-      }
-    ],
-    "miniBlurb": "Wild Question Marks and devious Semikoli, but the Little Blind Text didn\u2019t listen.",
-    "tagLine": "One more tagline, just for show.",
-    "similarBooks": [
-      {
-        "slug": "book-1",
-        "reason": "Liked the story of the little blind text"
-      },
-      {
-        "slug": "book-5",
-        "reason": "Want a new series in the same world"
-      }
-    ]
-  },
-  {
-    "id": "book-5",
-    "title": "Book 5",
-    "series": "Awesome Duet",
-    "positionInSeries": 1.0,
-    "releaseDate": "2025-11-11",
-    "coverImage": "/filtered-website-test/covers/Cover 5.jpg",
-    "altText": "Placeholder texture cover from Unsplash",
-    "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
-    "isRecent": false,
-    "isFeatured": true,
-    "tropes": [
-      "Trope 1",
-      "Trope 2",
-      "Trope 3",
-      "Trope 5",
-      "Trope 8",
-      "Trope 9"
-    ],
-    "dynamics": ["D2"],
-    "readerNotes": [
-      "warnings",
-      "and contents",
-      "optional field",
-      "will disappear if entry is empty"
-    ],
-    "isKU": true,
-    "purchaseOptions": [
-      {
-        "format": "eBook",
-        "price": "4.99",
-        "url": "https://amazon.com/dp/ZONURL02"
-      },
-      {
-        "format": "Paperback",
-        "price": "14.99",
-        "url": "https://amazon.com/dp/PAPERBACK_LINK02"
-      }
-    ],
-    "miniBlurb": "Wild Question Marks and devious Semikoli, but the Little Blind Text didn\u2019t listen.",
-    "tagLine": "One more tagline, just for show.",
-    "similarBooks": [
-      {
-        "slug": "book-1",
-        "reason": "Liked the story of the little blind text"
-      },
-      {
-        "slug": "book-2",
-        "reason": "Want a prequel series in the same world"
-      }
-    ]
-  },
-  {
-    "id": "book-6",
-    "title": "Book 6",
-    "series": "Awesome Duet",
-    "positionInSeries": 1.5,
-    "releaseDate": "2026-01-05",
-    "coverImage": "/filtered-website-test/covers/Cover 6.jpg",
-    "altText": "Placeholder texture cover from Unsplash",
-    "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
-    "isRecent": false,
-    "isFeatured": false,
-    "tropes": ["Trope 1", "Trope 2", "Trope 6", "Trope 8", "Trope 10"],
-    "dynamics": ["D2"],
-    "readerNotes": "",
-    "isKU": true,
-    "purchaseOptions": [
-      {
-        "format": "eBook",
-        "price": "5.99",
-        "url": "https://amazon.com/dp/ZONURL02"
-      },
-      {
-        "format": "Paperback",
-        "price": "18.99",
-        "url": "https://amazon.com/dp/PAPERBACK_LINK02"
-      }
-    ],
-    "miniBlurb": "An interquel to a duet.",
-    "tagLine": "The story between the stories.",
-    "similarBooks": [
-      {
-        "slug": "book-1",
-        "reason": "Liked the story of the little blind text"
-      },
-      {
-        "slug": "book-2",
-        "reason": "Want a prequel series in the same world"
-      }
-    ]
-  },
-  {
-    "id": "book-7",
-    "title": "Book 7",
-    "series": "Awesome Duet",
-    "positionInSeries": 2.0,
-    "releaseDate": "2026-04-25",
-    "coverImage": "/filtered-website-test/covers/Cover 7.jpg",
-    "altText": "Placeholder texture cover from Unsplash",
-    "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
-    "isRecent": true,
-    "isFeatured": true,
-    "tropes": ["Trope 2", "Trope 4", "Trope 7", "Trope 11", "Trope 12"],
-    "dynamics": ["D2"],
-    "readerNotes": "",
-    "isKU": true,
-    "purchaseOptions": [
-      {
-        "format": "eBook",
-        "price": "5.99",
-        "url": "https://amazon.com/dp/ZONURL02"
-      },
-      {
-        "format": "Paperback",
-        "price": "18.99",
-        "url": "https://amazon.com/dp/PAPERBACK_LINK02"
-      }
-    ],
-    "miniBlurb": "An interquel to a duet.",
-    "tagLine": "The story between the stories.",
-    "similarBooks": [
-      {
-        "slug": "book-1",
-        "reason": "Liked the story of the little blind text"
-      },
-      {
-        "slug": "book-2",
-        "reason": "Want a prequel series in the same world"
-      }
-    ]
-  }
+    {
+        "id": "book-1",
+        "title": "Book 1",
+        "series": "Standalone",
+        "positionInSeries": 1.0,
+        "releaseDate": "2024-03-15",
+        "coverImage": "/filtered-website-test/covers/Cover 1.jpg",
+        "altText": "Placeholder texture cover from Unsplash",
+        "blurb": "It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.",
+        "isRecent": false,
+        "isFeatured": true,
+        "tropes": [
+            "Trope 1",
+            "Trope 2",
+            "Trope 3",
+            "Trope 4",
+            "Trope 5",
+            "Trope 6"
+        ],
+        "dynamics": [
+            "D2"
+        ],
+        "readerNotes": [
+            "warnings",
+            "and contents",
+            "optional field",
+            "will disappear if entry is empty"
+        ],
+        "isKU": true,
+        "purchaseOptions": [
+            {
+                "format": "eBook",
+                "price": "4.99",
+                "url": "https://amazon.com/dp/ZONURL01"
+            },
+            {
+                "format": "Paperback",
+                "price": "14.99",
+                "url": "https://amazon.com/dp/PAPERBACK_LINK01"
+            }
+        ],
+        "miniBlurb": "Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy.",
+        "tagLine": "Tag line. Quick and to the point",
+        "similarBooks": [
+            {
+                "slug": "book-2",
+                "reason": "Liked this book?"
+            },
+            {
+                "slug": "book-4",
+                "reason": "Was this fun to read"
+            }
+        ],
+        "subGenre": ""
+    },
+    {
+        "id": "book-2",
+        "title": "Book 2",
+        "series": "Awesome Series",
+        "positionInSeries": 1.0,
+        "releaseDate": "2024-10-23",
+        "coverImage": "/filtered-website-test/covers/Cover 2.jpg",
+        "altText": "Placeholder texture cover from Unsplash",
+        "blurb": "It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.",
+        "isRecent": false,
+        "isFeatured": true,
+        "tropes": [
+            "Trope 1",
+            "Trope 2",
+            "Trope 3",
+            "Trope 4",
+            "Trope 5",
+            "Trope 6"
+        ],
+        "dynamics": [
+            "D1"
+        ],
+        "readerNotes": [
+            "warnings",
+            "and contents",
+            "optional field",
+            "will disappear if entry is empty"
+        ],
+        "isKU": true,
+        "purchaseOptions": [
+            {
+                "format": "eBook",
+                "price": "4.99",
+                "url": "https://amazon.com/dp/ZONURL02"
+            },
+            {
+                "format": "Paperback",
+                "price": "14.99",
+                "url": "https://amazon.com/dp/PAPERBACK_LINK02"
+            }
+        ],
+        "miniBlurb": "Wild Question Marks and devious Semikoli, but the Little Blind Text didn\u2019t listen.",
+        "tagLine": "Another tag line. Intrigueing and brief.",
+        "similarBooks": [
+            {
+                "slug": "book-1",
+                "reason": "Liked this book"
+            },
+            {
+                "slug": "book-5",
+                "reason": "Want more of this but with other characters"
+            }
+        ],
+        "subGenre": ""
+    },
+    {
+        "id": "book-3",
+        "title": "Book 3",
+        "series": "Awesome Series",
+        "positionInSeries": 2.0,
+        "releaseDate": "2024-10-23",
+        "coverImage": "/filtered-website-test/covers/Cover 3.jpg",
+        "altText": "Placeholder texture cover from Unsplash",
+        "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
+        "isRecent": false,
+        "isFeatured": false,
+        "tropes": [
+            "Trope 1",
+            "Trope 2",
+            "Trope 3",
+            "Trope 5",
+            "Trope 8",
+            "Trope 9"
+        ],
+        "dynamics": [
+            "D2"
+        ],
+        "readerNotes": [
+            "warnings",
+            "and contents",
+            "optional field",
+            "will disappear if entry is empty"
+        ],
+        "isKU": false,
+        "purchaseOptions": [
+            {
+                "format": "eBook",
+                "price": "4.99",
+                "url": "https://amazon.com/dp/ZONURL02"
+            },
+            {
+                "format": "Paperback",
+                "price": "14.99",
+                "url": "https://amazon.com/dp/PAPERBACK_LINK02"
+            }
+        ],
+        "miniBlurb": "Wild Question Marks and devious Semikoli, but the Little Blind Text didn\u2019t listen.",
+        "tagLine": "One more tagline, just for show.",
+        "similarBooks": [
+            {
+                "slug": "book-1",
+                "reason": "Liked the story of the little blind text"
+            },
+            {
+                "slug": "book-5",
+                "reason": "Want a new series in the same world"
+            }
+        ],
+        "subGenre": ""
+    },
+    {
+        "id": "book-4",
+        "title": "Book 4",
+        "series": "Awesome Series",
+        "positionInSeries": 3.0,
+        "releaseDate": "2025-05-17",
+        "coverImage": "/filtered-website-test/covers/Cover 4.jpg",
+        "altText": "Placeholder texture cover from Unsplash",
+        "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
+        "isRecent": false,
+        "isFeatured": false,
+        "tropes": [
+            "Trope 1",
+            "Trope 2",
+            "Trope 3",
+            "Trope 5",
+            "Trope 8",
+            "Trope 9"
+        ],
+        "dynamics": [
+            "D2"
+        ],
+        "readerNotes": [
+            "warnings",
+            "and contents",
+            "optional field",
+            "will disappear if entry is empty"
+        ],
+        "isKU": false,
+        "purchaseOptions": [
+            {
+                "format": "eBook",
+                "price": "4.99",
+                "url": "https://amazon.com/dp/ZONURL02"
+            },
+            {
+                "format": "Paperback",
+                "price": "14.99",
+                "url": "https://amazon.com/dp/PAPERBACK_LINK02"
+            }
+        ],
+        "miniBlurb": "Wild Question Marks and devious Semikoli, but the Little Blind Text didn\u2019t listen.",
+        "tagLine": "One more tagline, just for show.",
+        "similarBooks": [
+            {
+                "slug": "book-1",
+                "reason": "Liked the story of the little blind text"
+            },
+            {
+                "slug": "book-5",
+                "reason": "Want a new series in the same world"
+            }
+        ],
+        "subGenre": ""
+    },
+    {
+        "id": "book-5",
+        "title": "Book 5",
+        "series": "Awesome Duet",
+        "positionInSeries": 1.0,
+        "releaseDate": "2025-11-11",
+        "coverImage": "/filtered-website-test/covers/Cover 5.jpg",
+        "altText": "Placeholder texture cover from Unsplash",
+        "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
+        "isRecent": false,
+        "isFeatured": true,
+        "tropes": [
+            "Trope 1",
+            "Trope 2",
+            "Trope 3",
+            "Trope 5",
+            "Trope 8",
+            "Trope 9"
+        ],
+        "dynamics": [
+            "D2"
+        ],
+        "readerNotes": [
+            "warnings",
+            "and contents",
+            "optional field",
+            "will disappear if entry is empty"
+        ],
+        "isKU": true,
+        "purchaseOptions": [
+            {
+                "format": "eBook",
+                "price": "4.99",
+                "url": "https://amazon.com/dp/ZONURL02"
+            },
+            {
+                "format": "Paperback",
+                "price": "14.99",
+                "url": "https://amazon.com/dp/PAPERBACK_LINK02"
+            }
+        ],
+        "miniBlurb": "Wild Question Marks and devious Semikoli, but the Little Blind Text didn\u2019t listen.",
+        "tagLine": "One more tagline, just for show.",
+        "similarBooks": [
+            {
+                "slug": "book-1",
+                "reason": "Liked the story of the little blind text"
+            },
+            {
+                "slug": "book-2",
+                "reason": "Want a prequel series in the same world"
+            }
+        ],
+        "subGenre": ""
+    },
+    {
+        "id": "book-6",
+        "title": "Book 6",
+        "series": "Awesome Duet",
+        "positionInSeries": 1.5,
+        "releaseDate": "2026-01-05",
+        "coverImage": "/filtered-website-test/covers/Cover 6.jpg",
+        "altText": "Placeholder texture cover from Unsplash",
+        "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
+        "isRecent": false,
+        "isFeatured": false,
+        "tropes": [
+            "Trope 1",
+            "Trope 2",
+            "Trope 6",
+            "Trope 8",
+            "Trope 10"
+        ],
+        "dynamics": [
+            "D2"
+        ],
+        "readerNotes": "",
+        "isKU": true,
+        "purchaseOptions": [
+            {
+                "format": "eBook",
+                "price": "5.99",
+                "url": "https://amazon.com/dp/ZONURL02"
+            },
+            {
+                "format": "Paperback",
+                "price": "18.99",
+                "url": "https://amazon.com/dp/PAPERBACK_LINK02"
+            }
+        ],
+        "miniBlurb": "An interquel to a duet.",
+        "tagLine": "The story between the stories.",
+        "similarBooks": [
+            {
+                "slug": "book-1",
+                "reason": "Liked the story of the little blind text"
+            },
+            {
+                "slug": "book-2",
+                "reason": "Want a prequel series in the same world"
+            }
+        ],
+        "subGenre": ""
+    },
+    {
+        "id": "book-7",
+        "title": "Book 7",
+        "series": "Awesome Duet",
+        "positionInSeries": 2.0,
+        "releaseDate": "2026-04-25",
+        "coverImage": "/filtered-website-test/covers/Cover 7.jpg",
+        "altText": "Placeholder texture cover from Unsplash",
+        "blurb": "Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li",
+        "isRecent": true,
+        "isFeatured": true,
+        "tropes": [
+            "Trope 2",
+            "Trope 4",
+            "Trope 7",
+            "Trope 11",
+            "Trope 12"
+        ],
+        "dynamics": [
+            "D2"
+        ],
+        "readerNotes": "",
+        "isKU": true,
+        "purchaseOptions": [
+            {
+                "format": "eBook",
+                "price": "5.99",
+                "url": "https://amazon.com/dp/ZONURL02"
+            },
+            {
+                "format": "Paperback",
+                "price": "18.99",
+                "url": "https://amazon.com/dp/PAPERBACK_LINK02"
+            }
+        ],
+        "miniBlurb": "An interquel to a duet.",
+        "tagLine": "The story between the stories.",
+        "similarBooks": [
+            {
+                "slug": "book-1",
+                "reason": "Liked the story of the little blind text"
+            },
+            {
+                "slug": "book-2",
+                "reason": "Want a prequel series in the same world"
+            }
+        ],
+        "subGenre": ""
+    }
 ]

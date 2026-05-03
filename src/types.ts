@@ -24,6 +24,7 @@ export interface Book {
   blurb: string;
   isRecent: boolean;
   isFeatured: boolean;
+  subGenre: string[];
   tropes: string[];
   dynamics: string[];
   readerNotes: string[];

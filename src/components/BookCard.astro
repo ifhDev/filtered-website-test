@@ -73,7 +73,9 @@ const prefix = getPrefix(Astro.url);
 
   <div class="flex-1 flex flex-col mt-4">
     {
-      series !== "Standalone" && (
+      series === "A Standalone Novel" ? (
+        <span class="series-label">Standalone</span>
+      ) : (
         <span class="series-label">
           {series} #
           {positionInSeries % 1 === 0
