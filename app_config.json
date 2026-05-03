@@ -1,5 +1,5 @@
 {
-    "last_path": "C:/Users/ihaeu/Data Projects/OpenCode/author-website-skilled/src/data/books.json",
+    "last_path": "C:/Users/ihaeu/Data Projects/filtered-website-test/src/data/books.json",
     "active_template": "Books",
     "templates": {
         "Books": [
@@ -13,6 +13,7 @@
             "blurb",
             "isRecent",
             "isFeatured",
+            "genre",
             "subGenre",
             "tropes",
             "dynamics",

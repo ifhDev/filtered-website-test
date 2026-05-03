@@ -52,7 +52,8 @@
                 "reason": "Was this fun to read"
             }
         ],
-        "subGenre": ""
+        "subGenre": "",
+        "genre": "Paranormal Gothic Romance"
     },
     {
         "id": "book-2",
@@ -107,7 +108,8 @@
                 "reason": "Want more of this but with other characters"
             }
         ],
-        "subGenre": ""
+        "subGenre": "",
+        "genre": "Dark Paranormal Romance"
     },
     {
         "id": "book-3",
@@ -162,7 +164,8 @@
                 "reason": "Want a new series in the same world"
             }
         ],
-        "subGenre": ""
+        "subGenre": "",
+        "genre": "Dark Paranormal Romance"
     },
     {
         "id": "book-4",
@@ -217,7 +220,8 @@
                 "reason": "Want a new series in the same world"
             }
         ],
-        "subGenre": ""
+        "subGenre": "",
+        "genre": "Dark Paranormal Romance"
     },
     {
         "id": "book-5",
@@ -272,7 +276,8 @@
                 "reason": "Want a prequel series in the same world"
             }
         ],
-        "subGenre": ""
+        "subGenre": "",
+        "genre": "Romantasy"
     },
     {
         "id": "book-6",
@@ -321,7 +326,8 @@
                 "reason": "Want a prequel series in the same world"
             }
         ],
-        "subGenre": ""
+        "subGenre": "",
+        "genre": "Romantasy"
     },
     {
         "id": "book-7",
@@ -358,8 +364,8 @@
                 "url": "https://amazon.com/dp/PAPERBACK_LINK02"
             }
         ],
-        "miniBlurb": "An interquel to a duet.",
-        "tagLine": "The story between the stories.",
+        "miniBlurb": "The conclusion of a duet.",
+        "tagLine": "The swoon-worthy conclusion\u2026",
         "similarBooks": [
             {
                 "slug": "book-1",
@@ -370,6 +376,7 @@
                 "reason": "Want a prequel series in the same world"
             }
         ],
-        "subGenre": ""
+        "subGenre": "",
+        "genre": "Romantasy"
     }
 ]

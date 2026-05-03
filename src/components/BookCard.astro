@@ -5,27 +5,11 @@ import Button from "./Button.astro";
 import Badge from "./Badge.astro";
 import { getPrefix, navHref } from "../utils/nav";
 
-// We extend your central Book type so we inherit all its fields automatically,
-// and just add the one prop specific to this component's layout (compact).
 interface Props extends Book {
   compact?: boolean;
 }
 
-const {
-  id,
-  title,
-  series,
-  positionInSeries,
-  coverImage,
-  altText,
-  blurb,
-  tropes,
-  dynamics,
-  purchaseOptions,
-  compact = false,
-  miniBlurb,
-  tagLine,
-} = Astro.props;
+const { compact = false, ...book } = Astro.props;
 
 const pad = compact ? "p-3" : "p-5";
 const titleSize = compact ? "text-lg md:text-xl" : "text-xl md:text-2xl";
@@ -39,7 +23,7 @@ function getTropeSlug(name: string): string {
   return name.toLowerCase().replace(/\s+/g, "-").replace(/[/]/g, "-");
 }
 
-const sortedTropes = [...tropes]
+const sortedTropes = [...book.tropes]
   .sort((a, b) => {
     const aCanonical = tropesMap.get(a)?.canonical ?? false;
     const bCanonical = tropesMap.get(b)?.canonical ?? false;
@@ -49,10 +33,8 @@ const sortedTropes = [...tropes]
   })
   .slice(0, 4);
 
-// Since miniBlurb and tagLine are required in types.ts but might be empty strings ("")
-// in your JSON, standard JS truthiness (||) still works perfectly here.
-const displayBlurb = miniBlurb || tagLine || blurb;
-const useLineClamp = !miniBlurb && !tagLine;
+const displayBlurb = book.miniBlurb || book.tagLine || book.blurb;
+const useLineClamp = !book.miniBlurb && !book.tagLine;
 
 const prefix = getPrefix(Astro.url);
 ---
@@ -64,8 +46,8 @@ const prefix = getPrefix(Astro.url);
     class="w-full mx-auto aspect-[5/8] overflow-hidden rounded-lg bg-surface"
   >
     <img
-      src={coverImage}
-      alt={`Book cover for ${title}: ${altText}`}
+      src={book.coverImage}
+      alt={`Book cover for ${book.title}: ${book.altText}`}
       class="w-full h-full object-cover"
       loading="lazy"
     />
@@ -73,19 +55,19 @@ const prefix = getPrefix(Astro.url);
 
   <div class="flex-1 flex flex-col mt-4">
     {
-      series === "A Standalone Novel" ? (
-        <span class="series-label">Standalone</span>
+      book.series === "Standalone" ? (
+        <span class="series-label">A Standalone {book.genre}</span>
       ) : (
         <span class="series-label">
-          {series} #
-          {positionInSeries % 1 === 0
-            ? positionInSeries.toFixed(0)
-            : positionInSeries}
+          {book.series} #
+          {book.positionInSeries % 1 === 0
+            ? book.positionInSeries.toFixed(0)
+            : book.positionInSeries}
         </span>
       )
     }
     <h3 class={`heading-section ${titleSize} leading-tight`}>
-      {title}
+      {book.title}
     </h3>
 
     <p class={`text-sm body-text mt-2 ${useLineClamp ? "line-clamp-2" : ""}`}>
@@ -115,22 +97,22 @@ const prefix = getPrefix(Astro.url);
 
   <div class="mt-auto pt-4 divider flex flex-col sm:flex-row gap-3">
     {
-      purchaseOptions && purchaseOptions.length > 0 && (
+      book.purchaseOptions && book.purchaseOptions.length > 0 && (
         <Button
           variant="primary"
           size="sm"
-          href={purchaseOptions[0].url}
+          href={book.purchaseOptions[0].url}
           target="_blank"
           class="flex-1"
         >
-          Buy {purchaseOptions[0].format}
+          Buy {book.purchaseOptions[0].format}
         </Button>
       )
     }
     <Button
       variant="secondary"
       size="sm"
-      href={navHref(prefix, `/books/${id}`)}
+      href={navHref(prefix, `/books/${book.id}`)}
       class="flex-1"
     >
       Read More
